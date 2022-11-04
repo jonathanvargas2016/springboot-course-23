@@ -1,6 +1,7 @@
 package com.js.movies.servicio;
 
 import com.js.movies.dao.GeneroDao;
+import com.js.movies.excepcion.ElementoNuloExcepcion;
 import com.js.movies.modelo.Genero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class GeneroServicio {
     public boolean saveGenero(Genero genero) {
         boolean respuesta = false;
         if (genero.getNombreGenero() == null || genero.getNombreGenero().isBlank()) {
-            throw new RuntimeException("El género es nulo o blanco");
+            throw new ElementoNuloExcepcion("El género es nulo o blanco");
         }else {
             respuesta = this.generoDao.saveGenero(genero);
         }

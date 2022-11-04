@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Table(name = "perfiles")
 public class Perfile {
     @Id
-    @Column(name = "ID_PERFIL_", nullable = false)
+    @Column(name = "ID_PERFIL_")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)

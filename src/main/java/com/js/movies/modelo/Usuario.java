@@ -7,7 +7,8 @@ import java.time.LocalDate;
 @Table(name = "usuarios")
 public class Usuario {
     @Id
-    @Column(name = "ID_USUARIO", nullable = false)
+    @Column(name = "ID_USUARIO")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)

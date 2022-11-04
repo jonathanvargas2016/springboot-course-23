@@ -1,16 +1,14 @@
 package com.js.movies.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
 @Table(name = "suscripcion")
 public class Suscripcion {
     @Id
-    @Column(name = "ID_SUSCRIPCION", nullable = false)
+    @Column(name = "ID_SUSCRIPCION")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "NOMBRE_", nullable = false, length = 100)
@@ -27,9 +25,6 @@ public class Suscripcion {
 
     @Column(name = "FECHA_FINALIZACION", nullable = false)
     private Instant fechaFinalizacion;
-
-    @Column(name = "ESTADO_", nullable = false)
-    private Boolean estado = false;
 
     public Integer getId() {
         return id;
@@ -77,14 +72,6 @@ public class Suscripcion {
 
     public void setFechaFinalizacion(Instant fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
 
 }

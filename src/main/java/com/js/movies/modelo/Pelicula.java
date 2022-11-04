@@ -7,12 +7,9 @@ import java.time.LocalDate;
 @Table(name = "peliculas")
 public class Pelicula {
     @Id
-    @Column(name = "ID_PELICULA", nullable = false)
+    @Column(name = "ID_PELICULA")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PERFIL_")
-    private Perfile idPerfil;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_GENERO")
@@ -20,9 +17,6 @@ public class Pelicula {
 
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-
-    @Column(name = "AUTOR", nullable = false, length = 150)
-    private String autor;
 
     @Column(name = "DURACION", nullable = false)
     private Float duracion;
@@ -40,20 +34,15 @@ public class Pelicula {
     @Column(name = "FECHA_ESTRENO", nullable = false)
     private LocalDate fechaEstreno;
 
+    @Column(name = "NUMERO_VISTAS", nullable = false)
+    private Integer numeroVistas;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Perfile getIdPerfil() {
-        return idPerfil;
-    }
-
-    public void setIdPerfil(Perfile idPerfil) {
-        this.idPerfil = idPerfil;
     }
 
     public Genero getIdGenero() {
@@ -70,14 +59,6 @@ public class Pelicula {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
     }
 
     public Float getDuracion() {
@@ -118,6 +99,14 @@ public class Pelicula {
 
     public void setFechaEstreno(LocalDate fechaEstreno) {
         this.fechaEstreno = fechaEstreno;
+    }
+
+    public Integer getNumeroVistas() {
+        return numeroVistas;
+    }
+
+    public void setNumeroVistas(Integer numeroVistas) {
+        this.numeroVistas = numeroVistas;
     }
 
 }

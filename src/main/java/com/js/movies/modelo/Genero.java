@@ -6,15 +6,12 @@ import javax.persistence.*;
 @Table(name = "generos")
 public class Genero {
     @Id
+    @Column(name = "ID_GENERO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_GENERO", nullable = false)
     private Integer id;
 
     @Column(name = "NOMBRE_GENERO", nullable = false, length = 50)
     private String nombreGenero;
-
-    @Column(name = "ESTADO", nullable = false)
-    private Boolean estado = false;
 
     public Integer getId() {
         return id;
@@ -30,14 +27,6 @@ public class Genero {
 
     public void setNombreGenero(String nombreGenero) {
         this.nombreGenero = nombreGenero;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
 
 }
