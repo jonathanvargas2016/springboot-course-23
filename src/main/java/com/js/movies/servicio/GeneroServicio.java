@@ -15,16 +15,22 @@ public class GeneroServicio {
     private GeneroDao generoDao;
 
     public boolean saveGenero(Genero genero) {
-        boolean respuesta = false;
+
         if (genero.getNombreGenero() == null || genero.getNombreGenero().isBlank()) {
             throw new ElementoNuloExcepcion("El género es nulo o blanco");
-        }else {
-            respuesta = this.generoDao.saveGenero(genero);
         }
-        return respuesta;
+        return this.generoDao.saveGenero(genero);
+
     }
 
     public List<Genero> getGenero() {
         return this.generoDao.getAllGenero();
+    }
+
+    public Genero getGeneroId(Integer id) {
+        if (id == null) {
+            throw new ElementoNuloExcepcion("Id es nulo");
+        }
+        return this.generoDao.getGeneroId(id);
     }
 }

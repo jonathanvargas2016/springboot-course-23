@@ -30,4 +30,8 @@ public class GeneroDao {
         this.generoRepository.deleteById(genero.getId());
         return true;
     }
+
+    public Genero getGeneroId(Integer id){
+        return this.generoRepository.findById(id).get();
+    }
 }
