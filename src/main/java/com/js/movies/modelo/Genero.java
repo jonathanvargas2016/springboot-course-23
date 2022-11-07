@@ -13,8 +13,20 @@ public class Genero {
     @Column(name = "NOMBRE_GENERO", nullable = false, length = 50)
     private String nombreGenero;
 
+    @Column(name = "CODIGO_GENERO", nullable = false, length = 50)
+    private String codigoGenero;
+
+
     public Integer getId() {
         return id;
+    }
+
+    public String getCodigoGenero() {
+        return codigoGenero;
+    }
+
+    public void setCodigoGenero(String codigoGenero) {
+        this.codigoGenero = codigoGenero;
     }
 
     public void setId(Integer id) {

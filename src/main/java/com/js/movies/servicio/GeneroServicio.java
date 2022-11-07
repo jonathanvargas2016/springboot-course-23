@@ -3,6 +3,7 @@ package com.js.movies.servicio;
 import com.js.movies.dao.GeneroDao;
 import com.js.movies.excepcion.ElementoNuloExcepcion;
 import com.js.movies.modelo.Genero;
+import com.js.movies.operacion.Operacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class GeneroServicio {
     private GeneroDao generoDao;
 
     public boolean saveGenero(Genero genero) {
+        Operacion operacion = new Operacion();
+        String codigoGenero = operacion.convertirGenero(genero.getNombreGenero());
+        genero.setCodigoGenero(codigoGenero);
 
         if (genero.getNombreGenero() == null || genero.getNombreGenero().isBlank()) {
             throw new ElementoNuloExcepcion("El género es nulo o blanco");

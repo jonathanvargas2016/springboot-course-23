@@ -1,5 +1,6 @@
 package com.js.movies;
 
+import com.js.movies.operacion.Operacion;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
