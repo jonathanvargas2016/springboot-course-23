@@ -1,57 +1,49 @@
-package com.js.movies.modelo;
+package com.js.movies.dto;
+
+import com.js.movies.modelo.Detalle;
+import com.js.movies.modelo.DetalleCatalogo;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Collection;
 
-@Entity
-@Table(name = "peliculas")
-public class Pelicula implements Serializable {
+public class PeliculaDTO implements Serializable {
 
     private static final long serialVersionUID = 6352487410L;
 
-    @Id
-    @Column(name = "ID_PELICULA", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_GENERO")
-    private DetalleCatalogo idGenero;
+    private String idGenero;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_IDIOMA")
-    private DetalleCatalogo idIdioma;
+    private String idIdioma;
 
-    @Column(name = "TITULO", nullable = false, length = 100)
     private String titulo;
 
-    @Column(name = "DURACION", nullable = false)
     private Float duracion;
 
-    @Lob
-    @Column(name = "SINOPSIS", nullable = false)
     private String sinopsis;
 
-    @Column(name = "ESTADO", nullable = false)
     private Boolean estado = false;
 
-    @Column(name = "FECHA_ESTRENO", nullable = false)
-    private LocalDate fechaEstreno;
+    private Instant fechaEstreno;
 
-    @Column(name = "NUMERO_VISTAS", nullable = false)
     private Integer numeroVistas;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPelicula")
-    private Collection<Detalle> detalleCollection;
 
-    public Collection<Detalle> getDetalleCollection() {
-        return detalleCollection;
+    public PeliculaDTO() {
     }
 
-    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
-        this.detalleCollection = detalleCollection;
+    public PeliculaDTO(Integer id, String idGenero, String idIdioma, String titulo, Float duracion, String sinopsis, Boolean estado, Instant fechaEstreno, Integer numeroVistas) {
+        this.id = id;
+        this.idGenero = idGenero;
+        this.idIdioma = idIdioma;
+        this.titulo = titulo;
+        this.duracion = duracion;
+        this.sinopsis = sinopsis;
+        this.estado = estado;
+        this.fechaEstreno = fechaEstreno;
+        this.numeroVistas = numeroVistas;
     }
 
     public Integer getId() {
@@ -62,19 +54,19 @@ public class Pelicula implements Serializable {
         this.id = id;
     }
 
-    public DetalleCatalogo getIdGenero() {
+    public String getIdGenero() {
         return idGenero;
     }
 
-    public void setIdGenero(DetalleCatalogo idGenero) {
+    public void setIdGenero(String idGenero) {
         this.idGenero = idGenero;
     }
 
-    public DetalleCatalogo getIdIdioma() {
+    public String getIdIdioma() {
         return idIdioma;
     }
 
-    public void setIdIdioma(DetalleCatalogo idIdioma) {
+    public void setIdIdioma(String idIdioma) {
         this.idIdioma = idIdioma;
     }
 
@@ -110,11 +102,11 @@ public class Pelicula implements Serializable {
         this.estado = estado;
     }
 
-    public LocalDate getFechaEstreno() {
+    public Instant getFechaEstreno() {
         return fechaEstreno;
     }
 
-    public void setFechaEstreno(LocalDate fechaEstreno) {
+    public void setFechaEstreno(Instant fechaEstreno) {
         this.fechaEstreno = fechaEstreno;
     }
 
@@ -128,17 +120,16 @@ public class Pelicula implements Serializable {
 
     @Override
     public String toString() {
-        return "Pelicula{" +
+        return "Pelicula {" +
                 "id=" + id +
-                ", idGenero=" + idGenero +
-                ", idIdioma=" + idIdioma +
+                ", idGenero='" + idGenero + '\'' +
+                ", idIdioma='" + idIdioma + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", duracion=" + duracion +
                 ", sinopsis='" + sinopsis + '\'' +
                 ", estado=" + estado +
                 ", fechaEstreno=" + fechaEstreno +
                 ", numeroVistas=" + numeroVistas +
-                ", detalleCollection=" + detalleCollection +
                 '}';
     }
 }

@@ -1,13 +1,19 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Table(name = "perfiles")
-public class Perfile {
+public class Perfile implements Serializable {
+
+    private static final long serialVersionUID = 52634512586L;
+
     @Id
-    @Column(name = "ID_PERFIL_")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PERFIL_", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,8 +26,15 @@ public class Perfile {
     @Column(name = "TIPO_CONTENIDO", nullable = false, length = 50)
     private String tipoContenido;
 
-    @Column(name = "URLFOTO", nullable = false, length = 200)
-    private String urlfoto;
+    @Column(name = "ESTADO", nullable = false)
+    private Boolean estado = false;
+
+    @Column(name = "FECHA_NACIMIENTO", nullable = false)
+    private Date fechaNacimiento;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPerfil")
+    private Collection<Detalle> detalleCollection;
+
 
     public Integer getId() {
         return id;
@@ -55,12 +68,27 @@ public class Perfile {
         this.tipoContenido = tipoContenido;
     }
 
-    public String getUrlfoto() {
-        return urlfoto;
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public void setUrlfoto(String urlfoto) {
-        this.urlfoto = urlfoto;
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Collection<Detalle> getDetalleCollection() {
+        return detalleCollection;
+    }
+
+    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
+        this.detalleCollection = detalleCollection;
+    }
 }

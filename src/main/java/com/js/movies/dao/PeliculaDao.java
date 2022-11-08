@@ -1,7 +1,6 @@
 package com.js.movies.dao;
 
 import com.js.movies.dao.interfaz.PeliculaJPARepository;
-import com.js.movies.modelo.Genero;
 import com.js.movies.modelo.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -15,8 +14,8 @@ public class PeliculaDao {
 
     @Autowired
     PeliculaJPARepository peliculaRepository;
-    public boolean savePelicula(Pelicula pelicula){
-        boolean respuesta = false;
+    public Boolean savePelicula(Pelicula pelicula){
+        Boolean respuesta = false;
         Pelicula resPelicula  = this.peliculaRepository.save(pelicula);
         if(resPelicula.getId() != null && resPelicula.getId() > 0){
             respuesta = true;
@@ -41,10 +40,10 @@ public class PeliculaDao {
         return true;
     }
 
-    public List<Pelicula> getPeliculaCategoria(Genero genero, Integer pagina, Integer cantidad) {
-        Pelicula plantilla = new Pelicula();
-        plantilla.setIdGenero(genero);
-        return this.peliculaRepository.findAll(Example.of(plantilla), PageRequest.of(pagina, cantidad)).toList();
-    }
+//    public List<Pelicula> getPeliculaCategoria(Genero genero, Integer pagina, Integer cantidad) {
+//        Pelicula plantilla = new Pelicula();
+//        plantilla.setIdGenero(genero);
+//        return this.peliculaRepository.findAll(Example.of(plantilla), PageRequest.of(pagina, cantidad)).toList();
+//    }
 
 }

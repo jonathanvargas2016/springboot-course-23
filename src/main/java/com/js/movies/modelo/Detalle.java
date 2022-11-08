@@ -1,12 +1,15 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "detalles")
-public class Detalle {
+public class Detalle implements Serializable {
+    private static final long serialVersionUID = 7596841230L;
+
     @Id
-    @Column(name = "ID_DETALLES")
+    @Column(name = "ID_DETALLES", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

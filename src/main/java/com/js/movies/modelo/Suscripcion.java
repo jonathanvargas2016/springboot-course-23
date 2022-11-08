@@ -1,13 +1,17 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Collection;
 
 @Entity
 @Table(name = "suscripcion")
-public class Suscripcion {
+public class Suscripcion implements Serializable {
+
+    private static final long serialVersionUID = 6354871230L;
     @Id
-    @Column(name = "ID_SUSCRIPCION")
+    @Column(name = "ID_SUSCRIPCION", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -25,6 +29,12 @@ public class Suscripcion {
 
     @Column(name = "FECHA_FINALIZACION", nullable = false)
     private Instant fechaFinalizacion;
+
+    @Column(name = "ESTADO_", nullable = false)
+    private Boolean estado = false;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSuscripcion")
+    private Collection<Usuario> UsuariosCollection;
 
     public Integer getId() {
         return id;
@@ -74,4 +84,19 @@ public class Suscripcion {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public Collection<Usuario> getUsuariosCollection() {
+        return UsuariosCollection;
+    }
+
+    public void setUsuariosCollection(Collection<Usuario> usuariosCollection) {
+        UsuariosCollection = usuariosCollection;
+    }
 }

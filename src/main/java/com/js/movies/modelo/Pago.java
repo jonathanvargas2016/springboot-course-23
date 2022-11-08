@@ -1,13 +1,16 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.time.Instant;
 
 @Entity
 @Table(name = "pago")
-public class Pago {
+public class Pago implements Serializable {
+    private static final long serialVersionUID = 55412478301L;
+
     @Id
-    @Column(name = "ID_PAGO")
+    @Column(name = "ID_PAGO", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -22,10 +25,10 @@ public class Pago {
     private String tipoTarjeta;
 
     @Column(name = "FECHA_CADUCIDAD", nullable = false)
-    private LocalDate fechaCaducidad;
+    private Instant fechaCaducidad;
 
-    @Column(name = "CVV_TARJETA", nullable = false, length = 4)
-    private String cvvTarjeta;
+    @Column(name = "CVV", nullable = false, length = 4)
+    private String cvv;
 
     public Integer getId() {
         return id;
@@ -59,20 +62,20 @@ public class Pago {
         this.tipoTarjeta = tipoTarjeta;
     }
 
-    public LocalDate getFechaCaducidad() {
+    public Instant getFechaCaducidad() {
         return fechaCaducidad;
     }
 
-    public void setFechaCaducidad(LocalDate fechaCaducidad) {
+    public void setFechaCaducidad(Instant fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
     }
 
-    public String getCvvTarjeta() {
-        return cvvTarjeta;
+    public String getCvv() {
+        return cvv;
     }
 
-    public void setCvvTarjeta(String cvvTarjeta) {
-        this.cvvTarjeta = cvvTarjeta;
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
     }
 
 }

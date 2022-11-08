@@ -7,7 +7,7 @@ public class Operacion {
     public Operacion() {
     }
 
-    public String convertirGenero(String nombreGenero) {
+    public String convertirCatalogo(String nombreGenero) {
         String respuesta = nombreGenero.replace(" ", "-").toLowerCase();
         respuesta = Normalizer.normalize(respuesta, Normalizer.Form.NFD);
         respuesta = respuesta.replaceAll("[^\\p{ASCII}(N\u0303)(n\u0303)(\u00A1)(\u00BF)(\u00B0)(U\u0308)(u\u0308)]", "");

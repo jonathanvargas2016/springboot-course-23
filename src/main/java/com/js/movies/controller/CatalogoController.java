@@ -1,25 +1,25 @@
 package com.js.movies.controller;
 
 import com.js.movies.excepcion.ElementoNuloExcepcion;
-import com.js.movies.modelo.Genero;
+import com.js.movies.modelo.Catalogo;
 import com.js.movies.salida.Respuesta;
-import com.js.movies.servicio.GeneroServicio;
+import com.js.movies.servicio.CatalogoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class GeneroController {
+public class CatalogoController {
 
     @Autowired
-    private GeneroServicio generoServicio;
+    private CatalogoServicio generoServicio;
 
-    @PostMapping("/genero")
-    public @ResponseBody Respuesta saveGenero(@RequestBody Genero genero){
+    @PostMapping("/catalogo")
+    public @ResponseBody Respuesta saveGenero(@RequestBody Catalogo catalogo){
         Respuesta respuesta = new Respuesta();
         try{
-            boolean estado = this.generoServicio.saveGenero(genero);
+            Boolean estado = this.generoServicio.saveGenero(catalogo);
             respuesta.setRespuesta(estado);
             respuesta.setCodigo(0);
             respuesta.setMensaje("Ok");
@@ -35,11 +35,11 @@ public class GeneroController {
         return respuesta;
     }
 
-    @GetMapping("/genero")
+    @GetMapping("/catalogos")
     public @ResponseBody Respuesta getAllGenero(){
         Respuesta respuesta = new Respuesta();
         try{
-            List<Genero> generos =  this.generoServicio.getGenero();
+            List<Catalogo> generos =  this.generoServicio.getCatalogos();
             respuesta.setCodigo(0);
             respuesta.setMensaje("OK");
             respuesta.setRespuesta(generos);
