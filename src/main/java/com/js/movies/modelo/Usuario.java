@@ -1,14 +1,11 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
-    private static final long serialVersionUID = 85967482510L;
-
+public class Usuario {
     @Id
     @Column(name = "ID_USUARIO", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,16 +25,16 @@ public class Usuario implements Serializable {
     private String correo;
 
     @Column(name = "CONTRAENIA_", nullable = false, length = 30)
-    private String contrasenia;
+    private String contraenia;
 
     @Column(name = "USERNAME", nullable = false, length = 50)
     private String username;
 
-    @Column(name = "ESTADO", nullable = false)
-    private Boolean estado = false;
+    @Column(name = "ESTADO_USUARIO", nullable = false)
+    private Boolean estadoUsuario = false;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Pago> PagoCollection;
+    @Column(name = "FECHANACIMIENTO", nullable = false)
+    private LocalDate fechanacimiento;
 
     public Integer getId() {
         return id;
@@ -79,12 +76,12 @@ public class Usuario implements Serializable {
         this.correo = correo;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getContraenia() {
+        return contraenia;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setContraenia(String contraenia) {
+        this.contraenia = contraenia;
     }
 
     public String getUsername() {
@@ -95,19 +92,20 @@ public class Usuario implements Serializable {
         this.username = username;
     }
 
-    public Boolean getEstado() {
-        return estado;
+    public Boolean getEstadoUsuario() {
+        return estadoUsuario;
     }
 
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
+    public void setEstadoUsuario(Boolean estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
     }
 
-    public Collection<Pago> getPagoCollection() {
-        return PagoCollection;
+    public LocalDate getFechanacimiento() {
+        return fechanacimiento;
     }
 
-    public void setPagoCollection(Collection<Pago> pagoCollection) {
-        PagoCollection = pagoCollection;
+    public void setFechanacimiento(LocalDate fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
     }
+
 }

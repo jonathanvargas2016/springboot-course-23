@@ -1,16 +1,13 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
-@Table(name = "pago")
-public class Pago implements Serializable {
-    private static final long serialVersionUID = 55412478301L;
-
+@Table(name = "pagos")
+public class Pago {
     @Id
-    @Column(name = "ID_PAGO", nullable = false)
+    @Column(name = "ID_TARJETA", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -18,17 +15,17 @@ public class Pago implements Serializable {
     @JoinColumn(name = "ID_USUARIO")
     private Usuario idUsuario;
 
-    @Column(name = "NUMERO_TARJETA", nullable = false, length = 16)
+    @Column(name = "NUMERO_TARJETA", nullable = false, length = 30)
     private String numeroTarjeta;
 
-    @Column(name = "TIPO_TARJETA", nullable = false, length = 20)
-    private String tipoTarjeta;
-
-    @Column(name = "FECHA_CADUCIDAD", nullable = false)
-    private Instant fechaCaducidad;
+    @Column(name = "FECHA_TARJETA", nullable = false)
+    private Instant fechaTarjeta;
 
     @Column(name = "CVV", nullable = false, length = 4)
     private String cvv;
+
+    @Column(name = "ESTADO_TARJETA")
+    private Boolean estadoTarjeta;
 
     public Integer getId() {
         return id;
@@ -54,20 +51,12 @@ public class Pago implements Serializable {
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public String getTipoTarjeta() {
-        return tipoTarjeta;
+    public Instant getFechaTarjeta() {
+        return fechaTarjeta;
     }
 
-    public void setTipoTarjeta(String tipoTarjeta) {
-        this.tipoTarjeta = tipoTarjeta;
-    }
-
-    public Instant getFechaCaducidad() {
-        return fechaCaducidad;
-    }
-
-    public void setFechaCaducidad(Instant fechaCaducidad) {
-        this.fechaCaducidad = fechaCaducidad;
+    public void setFechaTarjeta(Instant fechaTarjeta) {
+        this.fechaTarjeta = fechaTarjeta;
     }
 
     public String getCvv() {
@@ -76,6 +65,14 @@ public class Pago implements Serializable {
 
     public void setCvv(String cvv) {
         this.cvv = cvv;
+    }
+
+    public Boolean getEstadoTarjeta() {
+        return estadoTarjeta;
+    }
+
+    public void setEstadoTarjeta(Boolean estadoTarjeta) {
+        this.estadoTarjeta = estadoTarjeta;
     }
 
 }

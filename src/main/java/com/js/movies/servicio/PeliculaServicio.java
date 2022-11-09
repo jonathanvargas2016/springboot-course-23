@@ -1,14 +1,13 @@
 package com.js.movies.servicio;
 
 import com.js.movies.dao.PeliculaDao;
-import com.js.movies.excepcion.ElementoNuloExcepcion;
-import com.js.movies.modelo.DetalleCatalogo;
+import com.js.movies.dto.PeliculaDTO;
 import com.js.movies.modelo.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PeliculaServicio {
@@ -16,22 +15,12 @@ public class PeliculaServicio {
     @Autowired
     private PeliculaDao peliculaDao;
 
-    public boolean savePelicula(Pelicula pelicula, Integer idGenero, Integer idIdioma) {
-
-        DetalleCatalogo genero = new DetalleCatalogo();
-        genero.setId(idGenero);
-        DetalleCatalogo idioma = new DetalleCatalogo();
-        idioma.setId(idIdioma);
-        pelicula.setIdGenero(genero);
-        pelicula.setIdIdioma(idioma);
+    public String savePelicula(Pelicula pelicula) {
 
         System.out.println("pelicula: " + pelicula);
-
-
-        if (pelicula == null || idGenero == null || idGenero < 0 || idIdioma == null || idIdioma < 0) {
-            throw new ElementoNuloExcepcion("Es necesario enviar todos los elementos");
+        if (pelicula == null) {
+            return "La pelicula es nula";
         }
-
         return this.peliculaDao.savePelicula(pelicula);
     }
 //
@@ -77,14 +66,12 @@ public class PeliculaServicio {
 //    }
 //
 //
-//    public List<Pelicula> getPeliculaGenero(Genero genero, Integer pagina, Integer cantidad) {
-//
-//        if (genero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {
-//            throw new ElementoNuloExcepcion("el genero, la pagina y la cantidad no deben ser nulo");
-//        }
-//
-//        return this.peliculaDao.getPeliculaCategoria(genero, pagina, cantidad);
-//
-//    }
+    public List<PeliculaDTO> getPeliculas(String descripcionGenero, Integer pagina, Integer cantidad) {
+        if (descripcionGenero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {
+            return null;
+        }
+        return this.peliculaDao.getPeliculas(descripcionGenero, pagina, cantidad);
+
+    }
 
 }

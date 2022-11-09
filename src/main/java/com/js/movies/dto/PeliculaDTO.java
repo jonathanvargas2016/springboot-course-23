@@ -1,49 +1,37 @@
 package com.js.movies.dto;
 
-import com.js.movies.modelo.Detalle;
-import com.js.movies.modelo.DetalleCatalogo;
-
-import javax.persistence.*;
+import com.js.movies.modelo.Genero;
 import java.io.Serializable;
-import java.time.Instant;
-import java.util.Collection;
 
-public class PeliculaDTO implements Serializable {
-
-    private static final long serialVersionUID = 6352487410L;
-
+public class PeliculaDTO {
     private Integer id;
 
-    private String idGenero;
-
-    private String idIdioma;
-
-    private String titulo;
+    private String detGenero;
+    private String nombre;
 
     private Float duracion;
 
     private String sinopsis;
 
-    private Boolean estado = false;
+    private String idioma;
 
-    private Instant fechaEstreno;
+    private Short estado;
 
-    private Integer numeroVistas;
+    private Float raiting;
 
+    public PeliculaDTO(){
 
-    public PeliculaDTO() {
     }
 
-    public PeliculaDTO(Integer id, String idGenero, String idIdioma, String titulo, Float duracion, String sinopsis, Boolean estado, Instant fechaEstreno, Integer numeroVistas) {
+    public PeliculaDTO(Integer id, String detGenero, String nombre, Float duracion, String sinopsis, String idioma, Short estado, Float raiting) {
         this.id = id;
-        this.idGenero = idGenero;
-        this.idIdioma = idIdioma;
-        this.titulo = titulo;
+        this.detGenero = detGenero;
+        this.nombre = nombre;
         this.duracion = duracion;
         this.sinopsis = sinopsis;
+        this.idioma = idioma;
         this.estado = estado;
-        this.fechaEstreno = fechaEstreno;
-        this.numeroVistas = numeroVistas;
+        this.raiting = raiting;
     }
 
     public Integer getId() {
@@ -55,27 +43,19 @@ public class PeliculaDTO implements Serializable {
     }
 
     public String getIdGenero() {
-        return idGenero;
+        return detGenero;
     }
 
-    public void setIdGenero(String idGenero) {
-        this.idGenero = idGenero;
+    public void setIdGenero(String detGenero) {
+        this.detGenero = detGenero;
     }
 
-    public String getIdIdioma() {
-        return idIdioma;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setIdIdioma(String idIdioma) {
-        this.idIdioma = idIdioma;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Float getDuracion() {
@@ -94,42 +74,28 @@ public class PeliculaDTO implements Serializable {
         this.sinopsis = sinopsis;
     }
 
-    public Boolean getEstado() {
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public Short getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(Short estado) {
         this.estado = estado;
     }
 
-    public Instant getFechaEstreno() {
-        return fechaEstreno;
+    public Float getRaiting() {
+        return raiting;
     }
 
-    public void setFechaEstreno(Instant fechaEstreno) {
-        this.fechaEstreno = fechaEstreno;
+    public void setRaiting(Float raiting) {
+        this.raiting = raiting;
     }
 
-    public Integer getNumeroVistas() {
-        return numeroVistas;
-    }
-
-    public void setNumeroVistas(Integer numeroVistas) {
-        this.numeroVistas = numeroVistas;
-    }
-
-    @Override
-    public String toString() {
-        return "Pelicula {" +
-                "id=" + id +
-                ", idGenero='" + idGenero + '\'' +
-                ", idIdioma='" + idIdioma + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", duracion=" + duracion +
-                ", sinopsis='" + sinopsis + '\'' +
-                ", estado=" + estado +
-                ", fechaEstreno=" + fechaEstreno +
-                ", numeroVistas=" + numeroVistas +
-                '}';
-    }
 }

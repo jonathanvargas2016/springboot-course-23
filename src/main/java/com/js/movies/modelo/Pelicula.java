@@ -1,16 +1,10 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Collection;
 
 @Entity
 @Table(name = "peliculas")
-public class Pelicula implements Serializable {
-
-    private static final long serialVersionUID = 6352487410L;
-
+public class Pelicula {
     @Id
     @Column(name = "ID_PELICULA", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +12,10 @@ public class Pelicula implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_GENERO")
-    private DetalleCatalogo idGenero;
+    private Genero idGenero;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_IDIOMA")
-    private DetalleCatalogo idIdioma;
-
-    @Column(name = "TITULO", nullable = false, length = 100)
-    private String titulo;
+    @Column(name = "NOMBRE", nullable = false, length = 100)
+    private String nombre;
 
     @Column(name = "DURACION", nullable = false)
     private Float duracion;
@@ -34,25 +24,14 @@ public class Pelicula implements Serializable {
     @Column(name = "SINOPSIS", nullable = false)
     private String sinopsis;
 
+    @Column(name = "IDIOMA", nullable = false, length = 20)
+    private String idioma;
+
     @Column(name = "ESTADO", nullable = false)
-    private Boolean estado = false;
+    private Short estado;
 
-    @Column(name = "FECHA_ESTRENO", nullable = false)
-    private LocalDate fechaEstreno;
-
-    @Column(name = "NUMERO_VISTAS", nullable = false)
-    private Integer numeroVistas;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPelicula")
-    private Collection<Detalle> detalleCollection;
-
-    public Collection<Detalle> getDetalleCollection() {
-        return detalleCollection;
-    }
-
-    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
-        this.detalleCollection = detalleCollection;
-    }
+    @Column(name = "RAITING", precision = 2)
+    private Float raiting;
 
     public Integer getId() {
         return id;
@@ -62,28 +41,20 @@ public class Pelicula implements Serializable {
         this.id = id;
     }
 
-    public DetalleCatalogo getIdGenero() {
+    public Genero getIdGenero() {
         return idGenero;
     }
 
-    public void setIdGenero(DetalleCatalogo idGenero) {
+    public void setIdGenero(Genero idGenero) {
         this.idGenero = idGenero;
     }
 
-    public DetalleCatalogo getIdIdioma() {
-        return idIdioma;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setIdIdioma(DetalleCatalogo idIdioma) {
-        this.idIdioma = idIdioma;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Float getDuracion() {
@@ -102,43 +73,28 @@ public class Pelicula implements Serializable {
         this.sinopsis = sinopsis;
     }
 
-    public Boolean getEstado() {
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public Short getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(Short estado) {
         this.estado = estado;
     }
 
-    public LocalDate getFechaEstreno() {
-        return fechaEstreno;
+    public Float getRaiting() {
+        return raiting;
     }
 
-    public void setFechaEstreno(LocalDate fechaEstreno) {
-        this.fechaEstreno = fechaEstreno;
+    public void setRaiting(Float raiting) {
+        this.raiting = raiting;
     }
 
-    public Integer getNumeroVistas() {
-        return numeroVistas;
-    }
-
-    public void setNumeroVistas(Integer numeroVistas) {
-        this.numeroVistas = numeroVistas;
-    }
-
-    @Override
-    public String toString() {
-        return "Pelicula{" +
-                "id=" + id +
-                ", idGenero=" + idGenero +
-                ", idIdioma=" + idIdioma +
-                ", titulo='" + titulo + '\'' +
-                ", duracion=" + duracion +
-                ", sinopsis='" + sinopsis + '\'' +
-                ", estado=" + estado +
-                ", fechaEstreno=" + fechaEstreno +
-                ", numeroVistas=" + numeroVistas +
-                ", detalleCollection=" + detalleCollection +
-                '}';
-    }
 }

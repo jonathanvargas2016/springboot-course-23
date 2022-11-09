@@ -1,7 +1,10 @@
 package com.js.movies.operacion;
 
+import org.springframework.stereotype.Component;
+
 import java.text.Normalizer;
 
+@Component
 public class Operacion {
 
     public Operacion() {

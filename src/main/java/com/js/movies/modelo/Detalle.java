@@ -1,15 +1,12 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "detalles")
-public class Detalle implements Serializable {
-    private static final long serialVersionUID = 7596841230L;
-
+public class Detalle {
     @Id
-    @Column(name = "ID_DETALLES", nullable = false)
+    @Column(name = "ID_PELICULA_PERFIL", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -19,7 +16,7 @@ public class Detalle implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PERFIL_")
-    private Perfile idPerfil;
+    private Perfil idPerfil;
 
     public Integer getId() {
         return id;
@@ -37,11 +34,11 @@ public class Detalle implements Serializable {
         this.idPelicula = idPelicula;
     }
 
-    public Perfile getIdPerfil() {
+    public Perfil getIdPerfil() {
         return idPerfil;
     }
 
-    public void setIdPerfil(Perfile idPerfil) {
+    public void setIdPerfil(Perfil idPerfil) {
         this.idPerfil = idPerfil;
     }
 

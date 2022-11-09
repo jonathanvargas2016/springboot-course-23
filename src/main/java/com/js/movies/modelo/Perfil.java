@@ -1,19 +1,13 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Table(name = "perfiles")
-public class Perfile implements Serializable {
-
-    private static final long serialVersionUID = 52634512586L;
-
+public class Perfil {
     @Id
     @Column(name = "ID_PERFIL_", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,15 +20,11 @@ public class Perfile implements Serializable {
     @Column(name = "TIPO_CONTENIDO", nullable = false, length = 50)
     private String tipoContenido;
 
-    @Column(name = "ESTADO", nullable = false)
-    private Boolean estado = false;
+    @Column(name = "URLFOTO", nullable = false, length = 200)
+    private String urlfoto;
 
-    @Column(name = "FECHA_NACIMIENTO", nullable = false)
-    private Date fechaNacimiento;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPerfil")
-    private Collection<Detalle> detalleCollection;
-
+    @Column(name = "ESTADO_PERFIL", nullable = false)
+    private Boolean estadoPerfil = false;
 
     public Integer getId() {
         return id;
@@ -68,27 +58,20 @@ public class Perfile implements Serializable {
         this.tipoContenido = tipoContenido;
     }
 
-    public Boolean getEstado() {
-        return estado;
+    public String getUrlfoto() {
+        return urlfoto;
     }
 
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
+    public void setUrlfoto(String urlfoto) {
+        this.urlfoto = urlfoto;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public Boolean getEstadoPerfil() {
+        return estadoPerfil;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setEstadoPerfil(Boolean estadoPerfil) {
+        this.estadoPerfil = estadoPerfil;
     }
 
-    public Collection<Detalle> getDetalleCollection() {
-        return detalleCollection;
-    }
-
-    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
-        this.detalleCollection = detalleCollection;
-    }
 }
