@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "planes")
-public class Plan {
+public class Plane {
     @Id
     @Column(name = "ID_PLAN", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @Column(name = "NOMBRE", nullable = false, length = 100)

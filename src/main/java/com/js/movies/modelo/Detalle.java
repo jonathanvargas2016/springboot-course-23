@@ -15,8 +15,8 @@ public class Detalle {
     private Pelicula idPelicula;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PERFIL_")
-    private Perfil idPerfil;
+    @JoinColumn(name = "ID_USUARIO")
+    private Usuario idUsuario;
 
     public Integer getId() {
         return id;
@@ -34,12 +34,12 @@ public class Detalle {
         this.idPelicula = idPelicula;
     }
 
-    public Perfil getIdPerfil() {
-        return idPerfil;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdPerfil(Perfil idPerfil) {
-        this.idPerfil = idPerfil;
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
 }

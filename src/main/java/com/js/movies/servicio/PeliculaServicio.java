@@ -6,9 +6,7 @@ import com.js.movies.modelo.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PeliculaServicio {
@@ -17,8 +15,6 @@ public class PeliculaServicio {
     private PeliculaDao peliculaDao;
 
     public String savePelicula(Pelicula pelicula) {
-
-        System.out.println("pelicula: " + pelicula);
         if (pelicula == null) {
             return "La pelicula es nula";
         }
@@ -26,8 +22,8 @@ public class PeliculaServicio {
     }
 
     public List<PeliculaDTO> getPeliculasRaiting() {
-        List<PeliculaDTO> peliculas = this.peliculaDao.getPeliculasRaiting();
-        return peliculas.stream().filter(pelicula -> pelicula.getRaiting() >= 4.0F).
+        List<PeliculaDTO> peliculas = this.peliculaDao.getPeliculasCalificacion();
+        return peliculas.stream().filter(pelicula -> pelicula.getCalificacion() >= 4.0F).
                 limit(12).toList();
     }
 
@@ -58,11 +54,11 @@ public class PeliculaServicio {
 //    }
 //
 //
-    public List<PeliculaDTO> getPeliculas(String descripcionGenero, Integer pagina, Integer cantidad) {
-        if (descripcionGenero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {
+    public List<PeliculaDTO> getPeliculas(String descripcionGenero, Integer pagina, Integer cantidad, Integer plan) {
+        if (descripcionGenero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0 || plan < 0) {
             return null;
         }
-        return this.peliculaDao.getPeliculas(descripcionGenero, pagina, cantidad);
+        return this.peliculaDao.getPeliculas(descripcionGenero, pagina, cantidad, plan);
 
     }
 

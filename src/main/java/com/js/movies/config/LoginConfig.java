@@ -25,7 +25,7 @@ public class LoginConfig {
         List<UserDetails> usuarios = new ArrayList<>();
 
         usuarios.add(User.withUsername("user").password("{noop}password").roles("USER").build());
-        usuarios.add(User.withUsername("jonathan-vargas").password("{noop}jonat2810").roles("ADMIN", "USER").build());
+        usuarios.add(User.withUsername("admin").password("{noop}jonat2810").roles("ADMIN", "USER").build());
         return new InMemoryUserDetailsManager(usuarios);
     }
 

@@ -9,11 +9,12 @@ public class Suscripcion {
     @Id
     @Column(name = "ID_SUSCRIPCION", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PLAN")
-    private Plan idPlan;
+    private Plane idPlan;
 
     @Column(name = "DURACION_MESES", nullable = false)
     private Integer duracionMeses;
@@ -25,7 +26,7 @@ public class Suscripcion {
     private Instant fechaFinalizacion;
 
     @Column(name = "ESTADO", nullable = false)
-    private Short estado;
+    private Boolean estado = false;
 
     public Integer getId() {
         return id;
@@ -35,11 +36,11 @@ public class Suscripcion {
         this.id = id;
     }
 
-    public Plan getIdPlan() {
+    public Plane getIdPlan() {
         return idPlan;
     }
 
-    public void setIdPlan(Plan idPlan) {
+    public void setIdPlan(Plane idPlan) {
         this.idPlan = idPlan;
     }
 
@@ -67,11 +68,11 @@ public class Suscripcion {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public Short getEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Boolean estado) {
         this.estado = estado;
     }
 

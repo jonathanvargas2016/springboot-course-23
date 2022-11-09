@@ -8,7 +8,12 @@ public class Pelicula {
     @Id
     @Column(name = "ID_PELICULA", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PAGO_EVENTO")
+    private PagosEvento idPagoEvento;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_GENERO")
@@ -21,8 +26,8 @@ public class Pelicula {
     private Float duracion;
 
     @Lob
-    @Column(name = "SINOPSIS", nullable = false)
-    private String sinopsis;
+    @Column(name = "RESUMEN", nullable = false)
+    private String resumen;
 
     @Column(name = "IDIOMA", nullable = false, length = 20)
     private String idioma;
@@ -30,8 +35,8 @@ public class Pelicula {
     @Column(name = "ESTADO", nullable = false)
     private Short estado;
 
-    @Column(name = "RAITING", nullable = false)
-    private Float raiting;
+    @Column(name = "CALIFICACION")
+    private Integer calificacion;
 
     public Integer getId() {
         return id;
@@ -39,6 +44,14 @@ public class Pelicula {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public PagosEvento getIdPagoEvento() {
+        return idPagoEvento;
+    }
+
+    public void setIdPagoEvento(PagosEvento idPagoEvento) {
+        this.idPagoEvento = idPagoEvento;
     }
 
     public Genero getIdGenero() {
@@ -65,12 +78,12 @@ public class Pelicula {
         this.duracion = duracion;
     }
 
-    public String getSinopsis() {
-        return sinopsis;
+    public String getResumen() {
+        return resumen;
     }
 
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
 
     public String getIdioma() {
@@ -89,12 +102,12 @@ public class Pelicula {
         this.estado = estado;
     }
 
-    public Float getRaiting() {
-        return raiting;
+    public Integer getCalificacion() {
+        return calificacion;
     }
 
-    public void setRaiting(Float raiting) {
-        this.raiting = raiting;
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
     }
 
 }

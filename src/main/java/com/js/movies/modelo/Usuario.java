@@ -1,7 +1,6 @@
 package com.js.movies.modelo;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "usuarios")
@@ -31,10 +30,7 @@ public class Usuario {
     private String username;
 
     @Column(name = "ESTADO_USUARIO", nullable = false)
-    private Short estadoUsuario;
-
-    @Column(name = "FECHANACIMIENTO", nullable = false)
-    private LocalDate fechanacimiento;
+    private Boolean estadoUsuario = false;
 
     public Integer getId() {
         return id;
@@ -92,20 +88,12 @@ public class Usuario {
         this.username = username;
     }
 
-    public Short getEstadoUsuario() {
+    public Boolean getEstadoUsuario() {
         return estadoUsuario;
     }
 
-    public void setEstadoUsuario(Short estadoUsuario) {
+    public void setEstadoUsuario(Boolean estadoUsuario) {
         this.estadoUsuario = estadoUsuario;
-    }
-
-    public LocalDate getFechanacimiento() {
-        return fechanacimiento;
-    }
-
-    public void setFechanacimiento(LocalDate fechanacimiento) {
-        this.fechanacimiento = fechanacimiento;
     }
 
 }

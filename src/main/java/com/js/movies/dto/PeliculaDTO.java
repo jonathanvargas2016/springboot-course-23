@@ -1,37 +1,45 @@
 package com.js.movies.dto;
 
 import com.js.movies.modelo.Genero;
-import java.io.Serializable;
+import com.js.movies.modelo.PagosEvento;
+
+import javax.persistence.*;
 
 public class PeliculaDTO {
+
     private Integer id;
 
-    private String detGenero;
+    private Integer idPagoEvento;
+
+
+    private String idGenero;
+
     private String nombre;
 
     private Float duracion;
 
-    private String sinopsis;
+
+    private String resumen;
 
     private String idioma;
 
     private Short estado;
 
-    private Float raiting;
+    private Integer calificacion;
 
-    public PeliculaDTO(){
-
+    public PeliculaDTO() {
     }
 
-    public PeliculaDTO(Integer id, String detGenero, String nombre, Float duracion, String sinopsis, String idioma, Short estado, Float raiting) {
+    public PeliculaDTO(Integer id, Integer idPagoEvento, String idGenero, String nombre, Float duracion, String resumen, String idioma, Short estado, Integer calificacion) {
         this.id = id;
-        this.detGenero = detGenero;
+        this.idPagoEvento = idPagoEvento;
+        this.idGenero = idGenero;
         this.nombre = nombre;
         this.duracion = duracion;
-        this.sinopsis = sinopsis;
+        this.resumen = resumen;
         this.idioma = idioma;
         this.estado = estado;
-        this.raiting = raiting;
+        this.calificacion = calificacion;
     }
 
     public Integer getId() {
@@ -42,12 +50,20 @@ public class PeliculaDTO {
         this.id = id;
     }
 
-    public String getIdGenero() {
-        return detGenero;
+    public Integer getIdPagoEvento() {
+        return idPagoEvento;
     }
 
-    public void setIdGenero(String detGenero) {
-        this.detGenero = detGenero;
+    public void setIdPagoEvento(Integer idPagoEvento) {
+        this.idPagoEvento = idPagoEvento;
+    }
+
+    public String getIdGenero() {
+        return idGenero;
+    }
+
+    public void setIdGenero(String idGenero) {
+        this.idGenero = idGenero;
     }
 
     public String getNombre() {
@@ -66,12 +82,12 @@ public class PeliculaDTO {
         this.duracion = duracion;
     }
 
-    public String getSinopsis() {
-        return sinopsis;
+    public String getResumen() {
+        return resumen;
     }
 
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
 
     public String getIdioma() {
@@ -90,12 +106,12 @@ public class PeliculaDTO {
         this.estado = estado;
     }
 
-    public Float getRaiting() {
-        return raiting;
+    public Integer getCalificacion() {
+        return calificacion;
     }
 
-    public void setRaiting(Float raiting) {
-        this.raiting = raiting;
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
     }
 
 }

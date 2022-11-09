@@ -97,13 +97,13 @@ public class PeliculaController {
     @GetMapping("/peliculas/{genero}")
     public @ResponseBody Respuesta getPeliculaGenero(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
                                                      @PathVariable(name = "genero") String descripcionGenero,
-                                                     @RequestParam(name = "pagina") Integer pagina,
-                                                     @RequestParam(name = "cantidad") Integer cantidad) {
+                                                     @RequestParam(name = "pagina", defaultValue = "0") Integer pagina,
+                                                     @RequestParam(name = "plan", defaultValue = "1") Integer plan,
+                                                     @RequestParam(name = "cantidad", defaultValue = "12") Integer cantidad) {
         Respuesta respuesta = new Respuesta();
-        System.out.println("genero " + descripcionGenero);
         if (tokenLogin.exist(token)) {
 
-            List<PeliculaDTO> data = this.peliculaServicio.getPeliculas(descripcionGenero, pagina, cantidad);
+            List<PeliculaDTO> data = this.peliculaServicio.getPeliculas(descripcionGenero, pagina, cantidad, plan);
 
             if (data == null) {
                 respuesta.setMensaje("Error: el genero, la pagina y la cantidad no deben ser nulo");
