@@ -24,7 +24,7 @@ public class Perfil {
     private String urlfoto;
 
     @Column(name = "ESTADO_PERFIL", nullable = false)
-    private Boolean estadoPerfil = false;
+    private Short estadoPerfil;
 
     public Integer getId() {
         return id;
@@ -66,11 +66,11 @@ public class Perfil {
         this.urlfoto = urlfoto;
     }
 
-    public Boolean getEstadoPerfil() {
+    public Short getEstadoPerfil() {
         return estadoPerfil;
     }
 
-    public void setEstadoPerfil(Boolean estadoPerfil) {
+    public void setEstadoPerfil(Short estadoPerfil) {
         this.estadoPerfil = estadoPerfil;
     }
 

@@ -25,7 +25,7 @@ public class Pago {
     private String cvv;
 
     @Column(name = "ESTADO_TARJETA")
-    private Boolean estadoTarjeta;
+    private Short estadoTarjeta;
 
     public Integer getId() {
         return id;
@@ -67,11 +67,11 @@ public class Pago {
         this.cvv = cvv;
     }
 
-    public Boolean getEstadoTarjeta() {
+    public Short getEstadoTarjeta() {
         return estadoTarjeta;
     }
 
-    public void setEstadoTarjeta(Boolean estadoTarjeta) {
+    public void setEstadoTarjeta(Short estadoTarjeta) {
         this.estadoTarjeta = estadoTarjeta;
     }
 

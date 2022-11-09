@@ -25,7 +25,7 @@ public class Suscripcion {
     private Instant fechaFinalizacion;
 
     @Column(name = "ESTADO", nullable = false)
-    private Boolean estado = false;
+    private Short estado;
 
     public Integer getId() {
         return id;
@@ -67,11 +67,11 @@ public class Suscripcion {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public Boolean getEstado() {
+    public Short getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(Short estado) {
         this.estado = estado;
     }
 

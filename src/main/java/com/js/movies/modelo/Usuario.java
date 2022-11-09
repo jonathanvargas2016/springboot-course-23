@@ -31,7 +31,7 @@ public class Usuario {
     private String username;
 
     @Column(name = "ESTADO_USUARIO", nullable = false)
-    private Boolean estadoUsuario = false;
+    private Short estadoUsuario;
 
     @Column(name = "FECHANACIMIENTO", nullable = false)
     private LocalDate fechanacimiento;
@@ -92,11 +92,11 @@ public class Usuario {
         this.username = username;
     }
 
-    public Boolean getEstadoUsuario() {
+    public Short getEstadoUsuario() {
         return estadoUsuario;
     }
 
-    public void setEstadoUsuario(Boolean estadoUsuario) {
+    public void setEstadoUsuario(Short estadoUsuario) {
         this.estadoUsuario = estadoUsuario;
     }
 
