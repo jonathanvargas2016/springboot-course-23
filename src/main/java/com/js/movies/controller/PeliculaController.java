@@ -40,21 +40,23 @@ public class PeliculaController {
         }
         return respuesta;
     }
-//
-//    @GetMapping("/pelicula")
-//    public @ResponseBody Respuesta getPelicula() {
-//        Respuesta respuesta = new Respuesta();
-//        try {
-//            List<Pelicula> peliculas = this.peliculaServicio.getPeliculaCatalogo("vistas");
-//            respuesta.setCodigo(0);
-//            respuesta.setMensaje("Ok");
-//            respuesta.setRespuesta(peliculas);
-//        } catch (RuntimeException exc) {
-//            respuesta.setCodigo(2);
-//            respuesta.setMensaje("Error: " + exc.toString());
-//        }
-//        return respuesta;
-//    }
+
+    @GetMapping("/peliculas/raiting")
+    public @ResponseBody Respuesta getPelicula(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token) {
+        Respuesta respuesta = new Respuesta();
+
+        if(tokenLogin.exist(token)){
+            List<PeliculaDTO> peliculas = this.peliculaServicio.getPeliculasRaiting();
+            respuesta.setCodigo(0);
+            respuesta.setMensaje("Ok");
+            respuesta.setRespuesta(peliculas);
+        }else {
+            respuesta.setMensaje("Acceso no autorizado");
+            respuesta.setCodigo(2);
+        }
+
+        return respuesta;
+    }
 //
 //    @GetMapping("/pelicula/{id}")
 //    public @ResponseBody Respuesta getPeliculaId(@PathVariable(name = "id") Integer id) {
@@ -99,20 +101,20 @@ public class PeliculaController {
                                                      @RequestParam(name = "cantidad") Integer cantidad) {
         Respuesta respuesta = new Respuesta();
         System.out.println("genero " + descripcionGenero);
-        if (tokenLogin.exist(token)){
+        if (tokenLogin.exist(token)) {
 
             List<PeliculaDTO> data = this.peliculaServicio.getPeliculas(descripcionGenero, pagina, cantidad);
 
-            if(data == null ){
+            if (data == null) {
                 respuesta.setMensaje("Error: el genero, la pagina y la cantidad no deben ser nulo");
                 respuesta.setCodigo(1);
-            }else {
+            } else {
                 respuesta.setRespuesta(data);
                 respuesta.setCodigo(0);
                 respuesta.setMensaje("Ok");
             }
 
-        }else{
+        } else {
             respuesta.setMensaje("Acceso no autorizado");
             respuesta.setCodigo(2);
         }

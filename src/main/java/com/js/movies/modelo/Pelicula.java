@@ -30,7 +30,7 @@ public class Pelicula {
     @Column(name = "ESTADO", nullable = false)
     private Short estado;
 
-    @Column(name = "RAITING", precision = 2)
+    @Column(name = "RAITING", nullable = false)
     private Float raiting;
 
     public Integer getId() {

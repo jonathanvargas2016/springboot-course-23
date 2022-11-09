@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PeliculaServicio {
@@ -23,23 +24,14 @@ public class PeliculaServicio {
         }
         return this.peliculaDao.savePelicula(pelicula);
     }
-//
-//    public List<Pelicula> getPeliculaCatalogo(String tipo) {
-//        List<Pelicula> peliculas = this.peliculaDao.getPelicula();
-//        if (tipo.contains("vistas")) {
-//
-//            peliculas = peliculas.stream().
-//                    filter(pelicula -> pelicula.getNumeroVistas() > 100).
-//                    limit(12).collect(Collectors.toList());
-//        }
-//
-//        if (tipo.contains("estrenos")) {
-//            //peliculas = peliculas.stream()
-//        }
-//
-//        return peliculas;
-//    }
-//
+
+    public List<PeliculaDTO> getPeliculasRaiting() {
+        List<PeliculaDTO> peliculas = this.peliculaDao.getPeliculasRaiting();
+        return peliculas.stream().filter(pelicula -> pelicula.getRaiting() >= 4.0F).
+                limit(12).toList();
+    }
+
+    //
 //    public List<Pelicula> getPeliculaPaginado(Integer pagina, Integer cantidad) {
 //
 //        if (pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {

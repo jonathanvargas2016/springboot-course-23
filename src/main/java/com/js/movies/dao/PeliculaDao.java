@@ -40,4 +40,14 @@ public class PeliculaDao {
         }
         return peliculas;
     }
+
+    public List<PeliculaDTO> getPeliculasRaiting(){
+        List<PeliculaDTO> peliculas = new ArrayList<>();
+        for (Pelicula pelicula : this.peliculaRepository.findAll()) {
+            peliculas.add(new PeliculaDTO(pelicula.getId(), pelicula.getIdGenero().getDescripcion(),
+                    pelicula.getNombre(), pelicula.getDuracion(),
+                    pelicula.getSinopsis(), pelicula.getIdioma(), pelicula.getEstado(), pelicula.getRaiting()));
+        }
+        return peliculas;
+    }
 }
