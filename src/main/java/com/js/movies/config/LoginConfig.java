@@ -31,7 +31,8 @@ public class LoginConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/home");
+
+        return (web) -> web.ignoring().antMatchers("/home", "/register");
     }
 
 

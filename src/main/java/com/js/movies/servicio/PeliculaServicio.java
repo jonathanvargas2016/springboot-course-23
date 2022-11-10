@@ -21,7 +21,7 @@ public class PeliculaServicio {
         return this.peliculaDao.savePelicula(pelicula);
     }
 
-    public List<PeliculaDTO> getPeliculasRaiting() {
+    public List<PeliculaDTO> getPeliculasCalificacion() {
         List<PeliculaDTO> peliculas = this.peliculaDao.getPeliculasCalificacion();
         return peliculas.stream().filter(pelicula -> pelicula.getCalificacion() >= 4.0F).
                 limit(12).toList();
@@ -55,7 +55,7 @@ public class PeliculaServicio {
 //
 //
     public List<PeliculaDTO> getPeliculas(String descripcionGenero, Integer pagina, Integer cantidad, Integer plan) {
-        if (descripcionGenero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0 || plan < 0) {
+        if (descripcionGenero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {
             return null;
         }
         return this.peliculaDao.getPeliculas(descripcionGenero, pagina, cantidad, plan);

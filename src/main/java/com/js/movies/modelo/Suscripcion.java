@@ -1,7 +1,11 @@
 package com.js.movies.modelo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonEncoding;
+
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "suscripcion")
@@ -14,19 +18,21 @@ public class Suscripcion {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PLAN")
-    private Plane idPlan;
+    private Plan idPlan;
 
     @Column(name = "DURACION_MESES", nullable = false)
     private Integer duracionMeses;
 
     @Column(name = "FECHA_INICIO", nullable = false)
-    private Instant fechaInicio;
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    private Date fechaInicio;
 
     @Column(name = "FECHA_FINALIZACION", nullable = false)
-    private Instant fechaFinalizacion;
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    private Date fechaFinalizacion;
 
     @Column(name = "ESTADO", nullable = false)
-    private Boolean estado = false;
+    private Short estado;
 
     public Integer getId() {
         return id;
@@ -36,11 +42,11 @@ public class Suscripcion {
         this.id = id;
     }
 
-    public Plane getIdPlan() {
+    public Plan getIdPlan() {
         return idPlan;
     }
 
-    public void setIdPlan(Plane idPlan) {
+    public void setIdPlan(Plan idPlan) {
         this.idPlan = idPlan;
     }
 
@@ -52,27 +58,27 @@ public class Suscripcion {
         this.duracionMeses = duracionMeses;
     }
 
-    public Instant getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Instant fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Instant getFechaFinalizacion() {
+    public Date getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(Instant fechaFinalizacion) {
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public Boolean getEstado() {
+    public Short getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(Short estado) {
         this.estado = estado;
     }
 

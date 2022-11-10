@@ -41,12 +41,12 @@ public class PeliculaController {
         return respuesta;
     }
 
-    @GetMapping("/peliculas/raiting")
+    @GetMapping("/peliculas/calificacion")
     public @ResponseBody Respuesta getPelicula(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token) {
         Respuesta respuesta = new Respuesta();
 
         if(tokenLogin.exist(token)){
-            List<PeliculaDTO> peliculas = this.peliculaServicio.getPeliculasRaiting();
+            List<PeliculaDTO> peliculas = this.peliculaServicio.getPeliculasCalificacion();
             respuesta.setCodigo(0);
             respuesta.setMensaje("Ok");
             respuesta.setRespuesta(peliculas);
@@ -57,50 +57,15 @@ public class PeliculaController {
 
         return respuesta;
     }
-//
-//    @GetMapping("/pelicula/{id}")
-//    public @ResponseBody Respuesta getPeliculaId(@PathVariable(name = "id") Integer id) {
-//        Respuesta respuesta = new Respuesta();
-//        try {
-//            Pelicula pelicula = this.peliculaServicio.getPeliculaId(id);
-//            respuesta.setCodigo(0);
-//            respuesta.setMensaje("Ok");
-//            respuesta.setRespuesta(pelicula);
-//
-//        } catch (ElementoNuloExcepcion exc) {
-//            respuesta.setCodigo(1);
-//            respuesta.setMensaje("Error: " + exc.toString());
-//
-//        } catch (RuntimeException exc) {
-//            respuesta.setCodigo(2);
-//            respuesta.setMensaje("Error: " + exc.toString());
-//        }
-//        return respuesta;
-//    }
-//
-//    @PostMapping("/delete/pelicula")
-//    public @ResponseBody Respuesta deletePelicula(@RequestBody Pelicula pelicula) {
-//        Respuesta respuesta = new Respuesta();
-//        try {
-//            boolean resp = this.peliculaServicio.deletePelicula(pelicula.getId());
-//            respuesta.setCodigo(0);
-//            respuesta.setMensaje("Ok");
-//            respuesta.setRespuesta(resp);
-//        } catch (RuntimeException exc) {
-//            respuesta.setCodigo(2);
-//            respuesta.setMensaje("Error: " + exc.toString());
-//        }
-//        return respuesta;
-//    }
-//
 
     @GetMapping("/peliculas/{genero}")
     public @ResponseBody Respuesta getPeliculaGenero(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
                                                      @PathVariable(name = "genero") String descripcionGenero,
                                                      @RequestParam(name = "pagina", defaultValue = "0") Integer pagina,
-                                                     @RequestParam(name = "plan", defaultValue = "1") Integer plan,
-                                                     @RequestParam(name = "cantidad", defaultValue = "12") Integer cantidad) {
+                                                     @RequestParam(name = "cantidad", defaultValue = "12") Integer cantidad,
+                                                     @RequestParam(name = "plan", defaultValue = "1") Integer plan) {
         Respuesta respuesta = new Respuesta();
+        System.out.println("genero " + descripcionGenero);
         if (tokenLogin.exist(token)) {
 
             List<PeliculaDTO> data = this.peliculaServicio.getPeliculas(descripcionGenero, pagina, cantidad, plan);

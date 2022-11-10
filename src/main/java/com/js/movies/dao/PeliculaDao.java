@@ -7,6 +7,7 @@ import com.js.movies.modelo.PagosEvento;
 import com.js.movies.modelo.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -50,7 +51,7 @@ public class PeliculaDao {
     public List<PeliculaDTO> getPeliculasCalificacion(){
         List<PeliculaDTO> peliculas = new ArrayList<>();
         for (Pelicula pelicula : this.peliculaRepository.findAll()) {
-            peliculas.add(new PeliculaDTO(pelicula.getId(), null ,pelicula.getIdGenero().getDescripcion(),
+            peliculas.add(new PeliculaDTO(pelicula.getId(), pelicula.getIdPagoEvento().getId() ,pelicula.getIdGenero().getDescripcion(),
                     pelicula.getNombre(), pelicula.getDuracion(),
                     pelicula.getResumen(), pelicula.getIdioma(), pelicula.getEstado(), pelicula.getCalificacion()));
         }

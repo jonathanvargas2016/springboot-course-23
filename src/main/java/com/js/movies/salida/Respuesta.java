@@ -7,7 +7,7 @@ public class Respuesta {
     /**
      * 0: ok
      * 1: error de cliente
-     * 2: error de base de datos
+     * 2: error no controlado
      */
     private int codigo;
 

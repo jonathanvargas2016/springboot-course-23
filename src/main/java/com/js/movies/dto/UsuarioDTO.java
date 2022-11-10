@@ -1,36 +1,39 @@
-package com.js.movies.modelo;
+package com.js.movies.dto;
+
+import com.js.movies.modelo.Suscripcion;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "usuarios")
-public class    Usuario {
-    @Id
-    @Column(name = "ID_USUARIO", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsuarioDTO {
+
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_SUSCRIPCION")
     private Suscripcion idSuscripcion;
 
-    @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
 
-    @Column(name = "APELLIDO", nullable = false, length = 100)
+
     private String apellido;
 
-    @Column(name = "CORREO", nullable = false, length = 100)
     private String correo;
 
-    @Column(name = "CONTRAENIA_", nullable = false, length = 30)
-    private String contrasena;
 
-    @Column(name = "USERNAME", nullable = false, length = 50)
     private String username;
 
-    @Column(name = "ESTADO_USUARIO", nullable = false)
     private Short estadoUsuario;
+
+    public UsuarioDTO() {
+    }
+
+    public UsuarioDTO(Integer id, Suscripcion idSuscripcion, String nombre, String apellido, String correo, String username, Short estadoUsuario) {
+        this.id = id;
+        this.idSuscripcion = idSuscripcion;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.username = username;
+        this.estadoUsuario = estadoUsuario;
+    }
 
     public Integer getId() {
         return id;
@@ -72,14 +75,6 @@ public class    Usuario {
         this.correo = correo;
     }
 
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -95,5 +90,6 @@ public class    Usuario {
     public void setEstadoUsuario(Short estadoUsuario) {
         this.estadoUsuario = estadoUsuario;
     }
+
 
 }
