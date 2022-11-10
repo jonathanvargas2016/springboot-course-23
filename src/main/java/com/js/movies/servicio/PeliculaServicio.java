@@ -27,33 +27,13 @@ public class PeliculaServicio {
                 limit(12).toList();
     }
 
-    //
-//    public List<Pelicula> getPeliculaPaginado(Integer pagina, Integer cantidad) {
-//
-//        if (pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {
-//            throw new ElementoNuloExcepcion("La pagina o la cantidad no deben ser nulos");
-//        }
-//
-//        return this.peliculaDao.getPeliculaPaginada(pagina, cantidad);
-//    }
-//
-//    public Pelicula getPeliculaId(Integer id) {
-//        if (id == null || id < 0) {
-//            throw new ElementoNuloExcepcion("el id no debe ser nulo");
-//        }
-//        return this.peliculaDao.getPeliculaId(id);
-//    }
-//
-//    public boolean deletePelicula(Integer id) {
-//        if(id == null || id < 0){
-//            throw new ElementoNuloExcepcion("el id no debe ser nulo");
-//
-//        }
-//        this.peliculaDao.deletepelicula(id);
-//        return true;
-//    }
-//
-//
+    public PeliculaDTO getPeliculaId(Integer id) {
+        if(id == null || id < 0){
+            return  null;
+        }
+        return this.peliculaDao.getPeliculaId(id);
+    }
+
     public List<PeliculaDTO> getPeliculas(String descripcionGenero, Integer pagina, Integer cantidad, Integer plan) {
         if (descripcionGenero == null || pagina == null || pagina < 0 || cantidad == null || cantidad < 0) {
             return null;

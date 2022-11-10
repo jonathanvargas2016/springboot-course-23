@@ -1,5 +1,8 @@
 package com.js.movies.config;
 
+import com.js.movies.dao.interfaz.UsuarioRepository;
+import com.js.movies.modelo.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,12 +23,20 @@ import java.util.List;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class LoginConfig {
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         List<UserDetails> usuarios = new ArrayList<>();
 
-        usuarios.add(User.withUsername("user").password("{noop}password").roles("USER").build());
+        List<Usuario> usuariosDB = this.usuarioRepository.findAll();
         usuarios.add(User.withUsername("admin").password("{noop}jonat2810").roles("ADMIN", "USER").build());
+
+        usuariosDB.stream().forEach(user ->
+                usuarios.add(User.withUsername(user.getUsername()).password("{noop}" + user.getContrasena()).roles("USER").build())
+        );
+
         return new InMemoryUserDetailsManager(usuarios);
     }
 
@@ -43,7 +54,7 @@ public class LoginConfig {
                 .antMatchers(HttpMethod.POST, "/login").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/genero").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/pelicula").hasAnyRole("ADMIN")
-        .and().csrf().disable();
+                .and().csrf().disable();
         return http.build();
     }
 }

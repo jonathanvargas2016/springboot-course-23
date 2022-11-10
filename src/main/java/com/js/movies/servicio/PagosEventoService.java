@@ -28,7 +28,7 @@ public class PagosEventoService {
         Pelicula pelicula = this.peliculaRepository.findById(idPelicula).orElse(null);
         Usuario usuario = this.usuarioRepository.findById(idUsuario).orElse(null);
 
-        if ( pelicula != null && pelicula.getIdPagoEvento().getId() > 1 && usuario != null) {
+        if ( pelicula != null && usuario != null) {
             Detalle detalle = new Detalle();
             detalle.setIdPelicula(pelicula);
             detalle.setIdUsuario(usuario);

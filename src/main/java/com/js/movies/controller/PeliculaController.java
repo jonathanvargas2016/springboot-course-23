@@ -45,12 +45,12 @@ public class PeliculaController {
     public @ResponseBody Respuesta getPelicula(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token) {
         Respuesta respuesta = new Respuesta();
 
-        if(tokenLogin.exist(token)){
+        if (tokenLogin.exist(token)) {
             List<PeliculaDTO> peliculas = this.peliculaServicio.getPeliculasCalificacion();
             respuesta.setCodigo(0);
             respuesta.setMensaje("Ok");
             respuesta.setRespuesta(peliculas);
-        }else {
+        } else {
             respuesta.setMensaje("Acceso no autorizado");
             respuesta.setCodigo(2);
         }
@@ -84,6 +84,34 @@ public class PeliculaController {
             respuesta.setCodigo(2);
         }
 
+        return respuesta;
+    }
+
+    @GetMapping("/pelicula")
+    public @ResponseBody Respuesta getPeliculaPorId(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
+                                                    @RequestParam(name = "id", defaultValue = "") Integer id) {
+        Respuesta respuesta = new Respuesta();
+
+        if (tokenLogin.exist(token)) {
+            try {
+                PeliculaDTO peliculaDTO = this.peliculaServicio.getPeliculaId(id);
+                if (peliculaDTO != null) {
+                    respuesta.setCodigo(0);
+                    respuesta.setMensaje("Ok");
+                    respuesta.setRespuesta(peliculaDTO);
+
+                } else {
+                    respuesta.setCodigo(1);
+                    respuesta.setMensaje("Pelicula no existe");
+                }
+            } catch (RuntimeException exc) {
+                respuesta.setCodigo(2);
+                respuesta.setMensaje("Error: intente mas tarde");
+            }
+        } else {
+            respuesta.setMensaje("Acceso no autorizado");
+            respuesta.setCodigo(2);
+        }
         return respuesta;
     }
 

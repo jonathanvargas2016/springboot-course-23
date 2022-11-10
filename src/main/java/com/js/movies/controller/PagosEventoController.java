@@ -16,7 +16,7 @@ public class PagosEventoController {
     @Autowired
     private TokenLogin tokenLogin;
 
-    @PostMapping("/evento/estreno")
+    @PostMapping("/pelicula/pago")
     public @ResponseBody Respuesta savePagosEvento(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
                                                    @RequestBody PagosEventoDTO pagosEventoDTO) {
         Respuesta respuesta = new Respuesta();
@@ -37,7 +37,7 @@ public class PagosEventoController {
 
             } catch (RuntimeException exc) {
                 respuesta.setCodigo(2);
-                respuesta.setMensaje("Error: no se pudo guardar");
+                respuesta.setMensaje("Error: intente mas tarde");
 
             }
         } else {

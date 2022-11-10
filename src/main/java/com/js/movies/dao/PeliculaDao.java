@@ -57,4 +57,18 @@ public class PeliculaDao {
         }
         return peliculas;
     }
+
+    public PeliculaDTO getPeliculaId(Integer id){
+        Pelicula pelicula = this.peliculaRepository.findById(id).orElse(null);
+        PeliculaDTO peliculaDTO;
+        if(pelicula != null){
+            peliculaDTO = new PeliculaDTO(pelicula.getId(), pelicula.getIdPagoEvento().getId() ,pelicula.getIdGenero().getDescripcion(),
+                    pelicula.getNombre(), pelicula.getDuracion(),
+                    pelicula.getResumen(), pelicula.getIdioma(), pelicula.getEstado(), pelicula.getCalificacion());
+        }else {
+            peliculaDTO = null;
+        }
+
+        return peliculaDTO;
+    }
 }
