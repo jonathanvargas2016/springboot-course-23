@@ -21,29 +21,25 @@ public class PeliculaController {
     private TokenLogin tokenLogin;
 
     @PostMapping("/pelicula")
-    public @ResponseBody Respuesta savePelicula(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token, @RequestBody Pelicula pelicula) {
+    public @ResponseBody Respuesta savePelicula(@RequestBody Pelicula pelicula) {
         Respuesta respuesta = new Respuesta();
 
-        if (tokenLogin.exist(token)) {
-            try {
-                String estado = this.peliculaServicio.savePelicula(pelicula);
-                if (estado.contains("OK")) {
-                    respuesta.setRespuesta(estado);
-                    respuesta.setCodigo(0);
-                    respuesta.setMensaje(estado);
-                } else {
-                    respuesta.setCodigo(1);
-                    respuesta.setMensaje("Error: " + estado);
-                }
-            } catch (RuntimeException exc) {
-                System.out.println("error:  " + exc);
-                respuesta.setCodigo(2);
-                respuesta.setMensaje("Error: intente mas tarde");
+        try {
+            String estado = this.peliculaServicio.savePelicula(pelicula);
+            if (estado.contains("OK")) {
+                respuesta.setRespuesta(estado);
+                respuesta.setCodigo(0);
+                respuesta.setMensaje(estado);
+            } else {
+                respuesta.setCodigo(1);
+                respuesta.setMensaje("Error: " + estado);
             }
-        } else {
-            respuesta.setMensaje("Acceso no autorizado");
+        } catch (RuntimeException exc) {
+            System.out.println("error:  " + exc);
             respuesta.setCodigo(2);
+            respuesta.setMensaje("Error: intente mas tarde");
         }
+
         return respuesta;
     }
 

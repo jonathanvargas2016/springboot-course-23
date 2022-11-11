@@ -16,28 +16,22 @@ public class PlanController {
     private TokenLogin tokenLogin;
 
     @PostMapping("/plan")
-    public @ResponseBody Respuesta savePlan(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
-                                            @RequestBody Plan plan) {
+    public @ResponseBody Respuesta savePlan(@RequestBody Plan plan) {
         Respuesta respuesta = new Respuesta();
-        if (tokenLogin.exist(token)) {
-            try {
-                String estado = this.planService.savePlan(plan);
-                if (estado.contains("OK")) {
-                    respuesta.setRespuesta(estado);
-                    respuesta.setCodigo(0);
-                    respuesta.setMensaje(estado);
-                } else {
-                    respuesta.setCodigo(1);
-                    respuesta.setMensaje("Error: " + estado);
-                }
-
-            } catch (RuntimeException exc) {
-                respuesta.setCodigo(2);
-                respuesta.setMensaje("Error: intente mas tarde");
+        try {
+            String estado = this.planService.savePlan(plan);
+            if (estado.contains("OK")) {
+                respuesta.setRespuesta(estado);
+                respuesta.setCodigo(0);
+                respuesta.setMensaje(estado);
+            } else {
+                respuesta.setCodigo(1);
+                respuesta.setMensaje("Error: " + estado);
             }
-        } else {
-            respuesta.setMensaje("Acceso no autorizado");
+
+        } catch (RuntimeException exc) {
             respuesta.setCodigo(2);
+            respuesta.setMensaje("Error: intente mas tarde");
         }
         return respuesta;
     }

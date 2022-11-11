@@ -18,55 +18,44 @@ public class GeneroController {
     private TokenLogin tokenLogin;
 
     @PostMapping("/genero")
-    public @ResponseBody Respuesta saveGenero(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token, @RequestBody Genero genero) {
+    public @ResponseBody Respuesta saveGenero(@RequestBody Genero genero) {
         Respuesta respuesta = new Respuesta();
-        if (tokenLogin.exist(token)) {
-            String estado = this.generoServicio.saveGenero(genero);
+        String estado = this.generoServicio.saveGenero(genero);
 
-            try {
-                if (estado.contains("OK")) {
-                    respuesta.setRespuesta(estado);
-                    respuesta.setCodigo(0);
-                    respuesta.setMensaje(estado);
-                } else {
-                    respuesta.setCodigo(1);
-                    respuesta.setMensaje(estado);
-                }
-            } catch (RuntimeException exc) {
-                respuesta.setCodigo(2);
-                respuesta.setMensaje("Error: intente mas tarde");
+        try {
+            if (estado.contains("OK")) {
+                respuesta.setRespuesta(estado);
+                respuesta.setCodigo(0);
+                respuesta.setMensaje(estado);
+            } else {
+                respuesta.setCodigo(1);
+                respuesta.setMensaje(estado);
             }
-        } else {
-            respuesta.setMensaje("Acceso no autorizado");
+        } catch (RuntimeException exc) {
             respuesta.setCodigo(2);
+            respuesta.setMensaje("Error: intente mas tarde");
         }
-
         return respuesta;
     }
 
     @PostMapping("delete/genero")
-    public @ResponseBody Respuesta deleteGenero(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
-                                                @RequestParam(name = "id", defaultValue = "") Integer id) {
+    public @ResponseBody Respuesta deleteGenero(@RequestParam(name = "id", defaultValue = "") Integer id) {
         Respuesta respuesta = new Respuesta();
-        if (tokenLogin.exist(token)) {
-            try {
-                String estado = this.generoServicio.deleteGenero(id);
-                if (estado.contains("OK")) {
-                    respuesta.setRespuesta(estado);
-                    respuesta.setCodigo(0);
-                    respuesta.setMensaje(estado);
-                } else {
-                    respuesta.setCodigo(1);
-                    respuesta.setMensaje(estado);
-                }
-            } catch (RuntimeException exc) {
-                respuesta.setCodigo(2);
-                respuesta.setMensaje("Error: intente mas tarde");
+        try {
+            String estado = this.generoServicio.deleteGenero(id);
+            if (estado.contains("OK")) {
+                respuesta.setRespuesta(estado);
+                respuesta.setCodigo(0);
+                respuesta.setMensaje(estado);
+            } else {
+                respuesta.setCodigo(1);
+                respuesta.setMensaje(estado);
             }
-        } else {
-            respuesta.setMensaje("Acceso no autorizado");
+        } catch (RuntimeException exc) {
             respuesta.setCodigo(2);
+            respuesta.setMensaje("Error: intente mas tarde");
         }
+
         return respuesta;
     }
 

@@ -54,6 +54,8 @@ public class LoginConfig {
                 .antMatchers(HttpMethod.POST, "/login").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/genero").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/pelicula").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/delete/genero").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/plan").hasAnyRole("ADMIN")
                 .and().csrf().disable();
         return http.build();
     }
