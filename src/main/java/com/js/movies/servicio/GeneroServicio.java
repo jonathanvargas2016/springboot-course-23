@@ -2,6 +2,7 @@ package com.js.movies.servicio;
 
 import com.js.movies.dao.GeneroDao;
 import com.js.movies.modelo.Genero;
+import com.js.movies.operacion.Operacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,11 @@ public class GeneroServicio {
     private GeneroDao catalogoDao;
 
     public String saveGenero(Genero genero) {
-        if (genero.getNombreGenero() == null || genero.getNombreGenero().isBlank()) {
-            return "El genero es nulo o blanco";
+        if (genero.getNombreGenero() == null || genero.getNombreGenero().isBlank() || genero.getEstado() == null || genero.getEstado() < 0) {
+            return "Error: en los datos";
         }
+        Operacion operacion = new Operacion();
+        genero.setDescripcion(operacion.convertirGenero(genero.getNombreGenero()));
         return  this.catalogoDao.saveCatalogo(genero);
     }
 

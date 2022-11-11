@@ -25,15 +25,20 @@ public class PeliculaController {
         Respuesta respuesta = new Respuesta();
 
         if (tokenLogin.exist(token)) {
-            String estado = this.peliculaServicio.savePelicula(pelicula);
-
-            if (estado.contains("OK")) {
-                respuesta.setRespuesta(estado);
-                respuesta.setCodigo(0);
-                respuesta.setMensaje("Ok");
-            } else {
-                respuesta.setMensaje("Error: " + estado);
-                respuesta.setCodigo(1);
+            try {
+                String estado = this.peliculaServicio.savePelicula(pelicula);
+                if (estado.contains("OK")) {
+                    respuesta.setRespuesta(estado);
+                    respuesta.setCodigo(0);
+                    respuesta.setMensaje(estado);
+                } else {
+                    respuesta.setCodigo(1);
+                    respuesta.setMensaje("Error: " + estado);
+                }
+            } catch (RuntimeException exc) {
+                System.out.println("error:  " + exc);
+                respuesta.setCodigo(2);
+                respuesta.setMensaje("Error: intente mas tarde");
             }
         } else {
             respuesta.setMensaje("Acceso no autorizado");
@@ -118,24 +123,24 @@ public class PeliculaController {
 
     @GetMapping("/peliculas/usuario")
     public @ResponseBody Respuesta getUsuarioPeliculas(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
-                                                       @RequestParam(name = "id", defaultValue = "") Integer id){
+                                                       @RequestParam(name = "id", defaultValue = "") Integer id) {
         Respuesta respuesta = new Respuesta();
-        if(tokenLogin.exist(token)){
-            try{
+        if (tokenLogin.exist(token)) {
+            try {
                 UsuarioPeliculaDTO datos = this.peliculaServicio.getUsuarioPeliculas(id);
-                if(datos != null){
+                if (datos != null) {
                     respuesta.setCodigo(0);
                     respuesta.setMensaje("Ok");
                     respuesta.setRespuesta(datos);
-                }else {
+                } else {
                     respuesta.setCodigo(1);
                     respuesta.setMensaje("Usuario no existe o no tiene registros");
                 }
-            }catch (RuntimeException exc){
+            } catch (RuntimeException exc) {
                 respuesta.setCodigo(2);
                 respuesta.setMensaje("Error: intente mas tarde");
             }
-        }else{
+        } else {
             respuesta.setCodigo(2);
             respuesta.setMensaje("Acceso no autorizado");
         }

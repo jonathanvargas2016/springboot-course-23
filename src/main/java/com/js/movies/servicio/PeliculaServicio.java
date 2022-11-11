@@ -17,10 +17,14 @@ public class PeliculaServicio {
     private PeliculaDao peliculaDao;
 
     public String savePelicula(Pelicula pelicula) {
-        if (pelicula == null) {
-            return "La pelicula es nula";
+
+        String salida = "";
+        if (pelicula != null && pelicula.getIdGenero() != null && pelicula.getIdPagoEvento() != null) {
+            salida = this.peliculaDao.savePelicula(pelicula);
+        }else {
+            salida = "Error en los datos";
         }
-        return this.peliculaDao.savePelicula(pelicula);
+        return  salida;
     }
 
     public List<PeliculaDTO> getPeliculasCalificacion() {
@@ -30,8 +34,8 @@ public class PeliculaServicio {
     }
 
     public PeliculaDTO getPeliculaId(Integer id) {
-        if(id == null || id < 0){
-            return  null;
+        if (id == null || id < 0) {
+            return null;
         }
         return this.peliculaDao.getPeliculaId(id);
     }
@@ -44,13 +48,13 @@ public class PeliculaServicio {
 
     }
 
-    public UsuarioPeliculaDTO getUsuarioPeliculas(Integer idUsuario){
+    public UsuarioPeliculaDTO getUsuarioPeliculas(Integer idUsuario) {
         UsuarioPeliculaDTO usuarioPeliculaDTO;
-        if(idUsuario < 0 || idUsuario == null){
+        if (idUsuario < 0 || idUsuario == null) {
             return null;
         }
         usuarioPeliculaDTO = this.peliculaDao.getUsuarioPeliculas(idUsuario);
-        if(usuarioPeliculaDTO.getId() == null || usuarioPeliculaDTO.getId() < 0){
+        if (usuarioPeliculaDTO.getId() == null || usuarioPeliculaDTO.getId() < 0) {
             usuarioPeliculaDTO = null;
         }
         return usuarioPeliculaDTO;

@@ -19,9 +19,24 @@ public class SuscripcionController {
     @Autowired
     private TokenLogin tokenLogin;
 
-    @PostMapping(path="/register",consumes = "application/json",produces = "application/json")
-    public ResponseEntity<String>guardar(@RequestBody InscripcionDto inscripcionDto){
-        return suscripcionService.SuscripcionService(inscripcionDto.getUsuario(), inscripcionDto.getSuscripcion(), inscripcionDto.getIntPlan());
+    @PostMapping(path="/register")
+    public @ResponseBody Respuesta guardar(@RequestBody InscripcionDto inscripcionDto){
+        Respuesta respuesta = new Respuesta();
+        try{
+            String salida = suscripcionService.SuscripcionService(inscripcionDto.getUsuario(), inscripcionDto.getSuscripcion(), inscripcionDto.getIntPlan());
+            if(salida.contains("OK")){
+                respuesta.setCodigo(0);
+                respuesta.setMensaje(salida);
+                respuesta.setRespuesta(salida);
+            }else{
+                respuesta.setCodigo(1);
+                respuesta.setMensaje(salida);
+            }
+        }catch (RuntimeException exc){
+            respuesta.setCodigo(2);
+            respuesta.setMensaje("Error: intente mas tarde");
+        }
+        return respuesta;
     }
     @GetMapping(path="/user")
     public @ResponseBody Respuesta getUsers (@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token){

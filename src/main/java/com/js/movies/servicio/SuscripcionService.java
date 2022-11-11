@@ -35,25 +35,24 @@ public class SuscripcionService {
     UsuarioRepository usuarioRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public ResponseEntity<String> SuscripcionService(Usuario usuario, Suscripcion suscripcion, Integer idPlan) {
+    public String SuscripcionService(Usuario usuario, Suscripcion suscripcion, Integer idPlan) {
+        String salida = "";
         if (usuario != null && suscripcion != null && idPlan != null) {
-            try {
-                Plan plan = planeRepository.findById(idPlan).orElse(null);
-                if (plan != null) {
-                    suscripcion.setIdPlan(plan);
-                    usuario.setIdSuscripcion(suscripcion);
-                    planeRepository.save(plan);
-                    suscripcionRepository.save(suscripcion);
-                    usuarioRepository.save(usuario);
-                    return new ResponseEntity<>("Se ha guardado correctamente el usuario", HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>("No se ha encontrado el plan", HttpStatus.NOT_FOUND);
-                }
-            } catch (ConstraintViolationException e) {
-                return new ResponseEntity<>("Error al guardar" + e.toString(), HttpStatus.BAD_REQUEST);
+            Plan plan = planeRepository.findById(idPlan).orElse(null);
+            if (plan != null) {
+                suscripcion.setIdPlan(plan);
+                usuario.setIdSuscripcion(suscripcion);
+                planeRepository.save(plan);
+                suscripcionRepository.save(suscripcion);
+                usuarioRepository.save(usuario);
+                salida = "OK";
+            } else {
+                salida = "No se ha encontrado el plan";
             }
+        } else {
+            salida = "Error en los datos";
         }
-        return new ResponseEntity<>("No se pudo suscrbir el usuario", HttpStatus.INTERNAL_SERVER_ERROR);
+        return salida;
     }
 
     public List<UsuarioDTO> getUsuarios() {
@@ -74,10 +73,10 @@ public class SuscripcionService {
             suscripcion.setDuracionMeses(usuario.getIdSuscripcion().getDuracionMeses());
             suscripcion.setEstado(usuario.getIdSuscripcion().getEstado());
 
-                usuarios.add(new UsuarioDTO(usuario.getId(), suscripcion, usuario.getNombre(),
-                        usuario.getApellido(), usuario.getCorreo(), usuario.getUsername(), usuario.getEstadoUsuario()
-                ));
-            }
-            return usuarios;
+            usuarios.add(new UsuarioDTO(usuario.getId(), suscripcion, usuario.getNombre(),
+                    usuario.getApellido(), usuario.getCorreo(), usuario.getUsername(), usuario.getEstadoUsuario()
+            ));
         }
+        return usuarios;
     }
+}

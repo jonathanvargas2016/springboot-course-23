@@ -25,9 +25,9 @@ public class PeliculaDao {
     DetallesJPARepository detallesJPARepository;
 
     public String savePelicula(Pelicula pelicula) {
-        String respuesta = "No se pudo guardar la pelicula";
+        String respuesta = "Error: no se pudo guardar";
         Pelicula resPelicula = this.peliculaRepository.save(pelicula);
-        if (resPelicula.getId() != null && resPelicula.getId() > 0) {
+        if (resPelicula != null) {
             respuesta = "OK";
         }
         return respuesta;
