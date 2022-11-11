@@ -12,7 +12,7 @@ import java.util.List;
 public class GeneroServicio {
 
     @Autowired
-    private GeneroDao catalogoDao;
+    private GeneroDao generoDao;
 
     public String saveGenero(Genero genero) {
         if (genero.getNombreGenero() == null || genero.getNombreGenero().isBlank() || genero.getEstado() == null || genero.getEstado() < 0) {
@@ -20,15 +20,23 @@ public class GeneroServicio {
         }
         Operacion operacion = new Operacion();
         genero.setDescripcion(operacion.convertirGenero(genero.getNombreGenero()));
-        return  this.catalogoDao.saveCatalogo(genero);
+        return  this.generoDao.saveCatalogo(genero);
     }
 
     public List<Genero> getCatalogos() {
-        return this.catalogoDao.getAllCatalogos();
+        return this.generoDao.getAllCatalogos();
     }
 
     public Genero getGeneroId(Integer id) {
-        Genero respGenero = this.catalogoDao.getCatalogoId(id);
+        Genero respGenero = this.generoDao.getCatalogoId(id);
         return respGenero != null ? respGenero : null;
+    }
+
+    public String deleteGenero(Integer id){
+        String salida = "Error en los datos";
+        if(id != null && id > 0){
+            salida = this.generoDao.deleteGenero(id);
+        }
+        return salida;
     }
 }

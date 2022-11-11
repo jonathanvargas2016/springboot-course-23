@@ -23,7 +23,7 @@ public class GeneroController {
         if (tokenLogin.exist(token)) {
             String estado = this.generoServicio.saveGenero(genero);
 
-            try{
+            try {
                 if (estado.contains("OK")) {
                     respuesta.setRespuesta(estado);
                     respuesta.setCodigo(0);
@@ -32,7 +32,7 @@ public class GeneroController {
                     respuesta.setCodigo(1);
                     respuesta.setMensaje(estado);
                 }
-            }catch (RuntimeException exc){
+            } catch (RuntimeException exc) {
                 respuesta.setCodigo(2);
                 respuesta.setMensaje("Error: intente mas tarde");
             }
@@ -41,6 +41,32 @@ public class GeneroController {
             respuesta.setCodigo(2);
         }
 
+        return respuesta;
+    }
+
+    @PostMapping("delete/genero")
+    public @ResponseBody Respuesta deleteGenero(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
+                                                @RequestParam(name = "id", defaultValue = "") Integer id) {
+        Respuesta respuesta = new Respuesta();
+        if (tokenLogin.exist(token)) {
+            try {
+                String estado = this.generoServicio.deleteGenero(id);
+                if (estado.contains("OK")) {
+                    respuesta.setRespuesta(estado);
+                    respuesta.setCodigo(0);
+                    respuesta.setMensaje(estado);
+                } else {
+                    respuesta.setCodigo(1);
+                    respuesta.setMensaje(estado);
+                }
+            } catch (RuntimeException exc) {
+                respuesta.setCodigo(2);
+                respuesta.setMensaje("Error: intente mas tarde");
+            }
+        } else {
+            respuesta.setMensaje("Acceso no autorizado");
+            respuesta.setCodigo(2);
+        }
         return respuesta;
     }
 
