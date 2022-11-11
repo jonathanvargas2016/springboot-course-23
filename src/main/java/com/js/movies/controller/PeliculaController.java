@@ -2,6 +2,7 @@ package com.js.movies.controller;
 
 import com.js.movies.config.TokenLogin;
 import com.js.movies.dto.PeliculaDTO;
+import com.js.movies.dto.UsuarioPeliculaDTO;
 import com.js.movies.modelo.Pelicula;
 import com.js.movies.salida.Respuesta;
 import com.js.movies.servicio.PeliculaServicio;
@@ -111,6 +112,32 @@ public class PeliculaController {
         } else {
             respuesta.setMensaje("Acceso no autorizado");
             respuesta.setCodigo(2);
+        }
+        return respuesta;
+    }
+
+    @GetMapping("/peliculas/usuario")
+    public @ResponseBody Respuesta getUsuarioPeliculas(@RequestHeader(name = "token", defaultValue = "NOTOKEN") String token,
+                                                       @RequestParam(name = "id", defaultValue = "") Integer id){
+        Respuesta respuesta = new Respuesta();
+        if(tokenLogin.exist(token)){
+            try{
+                UsuarioPeliculaDTO datos = this.peliculaServicio.getUsuarioPeliculas(id);
+                if(datos != null){
+                    respuesta.setCodigo(0);
+                    respuesta.setMensaje("Ok");
+                    respuesta.setRespuesta(datos);
+                }else {
+                    respuesta.setCodigo(1);
+                    respuesta.setMensaje("Usuario no existe o no tiene registros");
+                }
+            }catch (RuntimeException exc){
+                respuesta.setCodigo(2);
+                respuesta.setMensaje("Error: intente mas tarde");
+            }
+        }else{
+            respuesta.setCodigo(2);
+            respuesta.setMensaje("Acceso no autorizado");
         }
         return respuesta;
     }

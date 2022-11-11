@@ -2,6 +2,8 @@ package com.js.movies.servicio;
 
 import com.js.movies.dao.PeliculaDao;
 import com.js.movies.dto.PeliculaDTO;
+import com.js.movies.dto.UsuarioDTO;
+import com.js.movies.dto.UsuarioPeliculaDTO;
 import com.js.movies.modelo.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,18 @@ public class PeliculaServicio {
         }
         return this.peliculaDao.getPeliculas(descripcionGenero, pagina, cantidad, plan);
 
+    }
+
+    public UsuarioPeliculaDTO getUsuarioPeliculas(Integer idUsuario){
+        UsuarioPeliculaDTO usuarioPeliculaDTO;
+        if(idUsuario < 0 || idUsuario == null){
+            return null;
+        }
+        usuarioPeliculaDTO = this.peliculaDao.getUsuarioPeliculas(idUsuario);
+        if(usuarioPeliculaDTO.getId() == null || usuarioPeliculaDTO.getId() < 0){
+            usuarioPeliculaDTO = null;
+        }
+        return usuarioPeliculaDTO;
     }
 
 }
