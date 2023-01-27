@@ -19,16 +19,26 @@ public class ApplicationServiceImpl implements ApplicationService {
     public Application saveApplication(ApplicationDto app) {
 
         if (app.getName() == null || app.getName().isBlank() ||
-            app.getDescriptionApp() == null || app.getDescriptionApp().isBlank() ||
-            app.getAppType() == null || app.getAppType().isBlank()){
+                app.getDescriptionApp() == null || app.getDescriptionApp().isBlank() ||
+                app.getAppType() == null || app.getAppType().isBlank()) {
             throw new RuntimeException("Error, user should send all data");
         }
 
-        if(app.getAppType().equals(AppType.INTERNAL.name()) || app.getAppType().equals(AppType.EXTERNAL.name())){
+        if (app.getAppType().equals(AppType.INTERNAL.name()) || app.getAppType().equals(AppType.EXTERNAL.name())) {
             return this.applicationRepository.save(new ApplicationMapperImpl().getAsEntity(app));
 
-        }else {
+        } else {
             throw new RuntimeException("App type does not exist");
         }
+    }
+
+    @Override
+    public Application getApplicationById(Long id) {
+        Application application = this.applicationRepository.findById(id).orElse(null);
+
+        if (application != null) {
+            return application;
+        }
+        return null;
     }
 }

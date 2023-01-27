@@ -1,5 +1,6 @@
 package com.js.cinema.domain;
 
+import com.js.cinema.domain.enums.StatusType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,8 +24,8 @@ public class Ticket {
     @JoinColumn(name = "ID_APP", nullable = false)
     private Application application;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_RELEASE")
+    @OneToOne
+    @JoinColumn(name = "ID_RELEASE", referencedColumnName = "ID_RELEASE")
     private ReleaseApp release;
 
     @Size(max = 100)
@@ -36,10 +37,10 @@ public class Ticket {
     @Column(name = "DESCRIPTION_TITLE", length = 200)
     private String descriptionTitle;
 
-    @Size(max = 20)
     @NotNull
     @Column(name = "STATUS", nullable = false, length = 20)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
 
 
 }

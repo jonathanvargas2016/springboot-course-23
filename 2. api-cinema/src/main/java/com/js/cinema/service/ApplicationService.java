@@ -6,5 +6,6 @@ import com.js.cinema.service.dto.ApplicationDto;
 public interface ApplicationService {
 
     Application saveApplication(ApplicationDto app);
+    Application getApplicationById(Long id);
 
 }

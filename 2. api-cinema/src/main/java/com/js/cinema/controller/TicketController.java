@@ -1,9 +1,9 @@
 package com.js.cinema.controller;
 
-import com.js.cinema.domain.Application;
+import com.js.cinema.domain.Ticket;
 import com.js.cinema.output.Answer;
-import com.js.cinema.service.dto.ApplicationDto;
-import com.js.cinema.service.impl.ApplicationServiceImpl;
+import com.js.cinema.service.dto.TicketDto;
+import com.js.cinema.service.impl.TicketServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("application")
-public class ApplicationController {
-
+@RequestMapping("ticket")
+public class TicketController {
 
     @Autowired
-    private ApplicationServiceImpl applicationService;
+    private TicketServiceImpl ticketService;
 
-    @PostMapping()
-    public ResponseEntity<?> saveApplication(@RequestBody ApplicationDto application){
+    @PostMapping("")
+    public ResponseEntity<?> saveTicket(@RequestBody TicketDto ticket){
         Answer answer = new Answer();
         try{
-            Application res = this.applicationService.saveApplication(application);
-            if(res != null){
-                answer.setMessage("Application has been created");
-                answer.setDataAnswer(res);
+
+            Ticket resTicket =  this.ticketService.saveTicket(ticket);
+            if(resTicket != null){
+                answer.setMessage("Ticket has been created");
+                answer.setDataAnswer(resTicket);
             }
             return new ResponseEntity<>(answer, HttpStatus.OK);
         }catch (RuntimeException exc){
@@ -37,9 +37,9 @@ public class ApplicationController {
         }
     }
 
-
-
-
-
+//    @PostMapping()
+//    public ResponseEntity<?> updateStatusTicket(){
+//
+//    }
 
 }

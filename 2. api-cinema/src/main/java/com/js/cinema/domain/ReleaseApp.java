@@ -25,8 +25,7 @@ public class ReleaseApp {
     @Column(name = "RELEASE_VERSION", nullable = false, length = 10)
     private String releaseVersion;
 
-    @NotNull
-    @Column(name = "RELEASE_DATE", nullable = false)
+    @Column(name = "RELEASE_DATE")
     private LocalDate releaseDate;
 
     @Size(max = 200)
