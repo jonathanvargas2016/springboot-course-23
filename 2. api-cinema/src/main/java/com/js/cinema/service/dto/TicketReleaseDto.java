@@ -16,7 +16,4 @@ public class TicketReleaseDto {
     @NotNull
     private Long idTicket;
     private ReleaseApp release;
-
-
-
 }

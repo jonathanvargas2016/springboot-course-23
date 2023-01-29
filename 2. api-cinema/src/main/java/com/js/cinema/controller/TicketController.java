@@ -3,6 +3,7 @@ package com.js.cinema.controller;
 import com.js.cinema.domain.Ticket;
 import com.js.cinema.output.Answer;
 import com.js.cinema.service.dto.TicketDto;
+import com.js.cinema.service.dto.TicketReleaseDto;
 import com.js.cinema.service.impl.TicketServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,9 +38,21 @@ public class TicketController {
         }
     }
 
-//    @PostMapping()
-//    public ResponseEntity<?> updateStatusTicket(){
-//
-//    }
+    @PostMapping("/update")
+    public ResponseEntity<?> updateStatusTicket(@RequestBody TicketReleaseDto ticket){
+        Answer answer = new Answer();
+        try{
+            TicketReleaseDto res = this.ticketService.updateTicket(ticket);
+            if (res != null) {
+                answer.setMessage("Ticket has been updated");
+                answer.setDataAnswer(res);
+            }
+            return new ResponseEntity<>(answer, HttpStatus.OK);
+        }catch (RuntimeException exc){
+            answer.setMessage(exc.getMessage());
+            answer.setDataAnswer(null);
+            return new ResponseEntity<>(answer, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

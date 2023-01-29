@@ -7,6 +7,6 @@ import com.js.cinema.service.dto.TicketReleaseDto;
 public interface TicketService {
 
     Ticket saveTicket(TicketDto ticket);
-    Ticket updateTicket(TicketReleaseDto ticket);
+    TicketReleaseDto updateTicket(TicketReleaseDto ticket);
 
 }

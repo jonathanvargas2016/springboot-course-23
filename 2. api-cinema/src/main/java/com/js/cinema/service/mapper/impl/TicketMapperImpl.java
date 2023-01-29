@@ -5,6 +5,7 @@ import com.js.cinema.domain.ReleaseApp;
 import com.js.cinema.domain.Ticket;
 import com.js.cinema.domain.enums.StatusType;
 import com.js.cinema.service.dto.TicketDto;
+import com.js.cinema.service.dto.TicketReleaseDto;
 import com.js.cinema.service.mapper.TicketMapper;
 import org.springframework.stereotype.Component;
 
@@ -36,5 +37,13 @@ public class TicketMapperImpl implements TicketMapper {
         }
 
         return ticket;
+    }
+
+    @Override
+    public TicketReleaseDto getAsTicketReleaseDto(Ticket ticket) {
+        TicketReleaseDto ticketReleaseDto = new TicketReleaseDto();
+        ticketReleaseDto.setIdTicket(ticket.getId());
+        ticketReleaseDto.setRelease(ticket.getRelease());
+        return ticketReleaseDto;
     }
 }
