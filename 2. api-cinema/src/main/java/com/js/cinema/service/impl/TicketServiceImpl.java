@@ -8,6 +8,7 @@ import com.js.cinema.domain.enums.StatusType;
 import com.js.cinema.repository.ReleaseRepository;
 import com.js.cinema.repository.TicketRepository;
 import com.js.cinema.service.TicketService;
+import com.js.cinema.service.dto.ReleasesReportDto;
 import com.js.cinema.service.dto.TicketDto;
 import com.js.cinema.service.dto.TicketReleaseDto;
 import com.js.cinema.service.mapper.impl.TicketMapperImpl;
@@ -17,6 +18,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -70,5 +74,18 @@ public class TicketServiceImpl implements TicketService {
 
         }
         return ticketReleaseDto;
+    }
+
+    @Override
+    public List<ReleasesReportDto> findReleasesReport(String dateRelease, String nameApp) {
+
+        List<ReleasesReportDto> releasesDto = new ArrayList<>();
+
+        for (Object[] objects : this.ticketRepository.findReleasesReport(dateRelease, nameApp)) {
+
+            releasesDto.add(new ReleasesReportDto(objects[0].toString(), objects[1].toString(), Long.parseLong(objects[2].toString()), objects[3].toString(), objects[4].toString()));
+        }
+
+        return releasesDto;
     }
 }
