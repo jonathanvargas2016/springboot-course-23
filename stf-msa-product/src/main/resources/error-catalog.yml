@@ -1,0 +1,8 @@
+provider:
+  errors:
+    - provider-error-code: 'PRV-020'
+      error-code: 'SYS-024'
+
+exception-bindings:
+  - exception-class: 'org.apache.commons.lang3.NotImplementedException'
+    provider-code: 'PRV-020'

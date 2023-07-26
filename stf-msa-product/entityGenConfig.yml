@@ -1,0 +1,13 @@
+<#if project.requireDataSupport>
+<#assign resultUrl = "${project.dataBaseConfig.applicationYamlConfig.spring.datasource.urlValue}"+"${project.dataBaseConfig.serverName}">
+jdbcSettings:
+  url: "${resultUrl}"
+  username: "${project.dataBaseParameterComponent.userName}"
+  password: "${project.dataBaseParameterComponent.password}"
+  driverClassName: "${project.dataBaseConfig.applicationYamlConfig.spring.datasource.driverValue}"
+  data:
+
+outputDirectory: "src/main/java"
+
+packageName: "com.pichincha.center.infrastructure.output.repository.entity"
+</#if>

@@ -1,0 +1,12 @@
+{
+  "name": "asyncapi-generator-task",
+  "version": "1.0.0",
+  "description": "ncnp",
+  "scripts": {
+    "generate": "ag src/main/resources/asyncapi.yaml @asyncapi/java-spring-cloud-stream-template -o target/generated-sources/asyncapi -p reactive=true -p artifactType=library --force-write"
+  },
+  "devDependencies": {
+    "@asyncapi/generator": "^1.7.0",
+    "@asyncapi/java-spring-cloud-stream-template": "^0.6.6"
+  }
+}

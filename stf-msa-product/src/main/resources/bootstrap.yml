@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    kubernetes:
+      enabled: false
+  application:
+    name: ${project.artifactId?lower_case}
+  main:
+    allow-bean-definition-overriding: on
+    lazy-initialization: on
+info:
+  project:
+    name: ${project.artifactId?lower_case}
+    version: ${project.projectVersion}
+
+server:
+  port: ${project.port}
+
+<#if project.components??>
+    <#list project.components as component>
+        <#if component == 'rest_client'>
+ncnp:
+  http-client:
+    api:
+            <#if project.openApiContractFirst??>
+                <#list project.openApiContractFirst as openapicliente>
+      client-${openapicliente?index}:
+        base-url: http://localhost:808${openapicliente?index}/v1/
+                </#list>  
+            </#if>
+        </#if>
+    </#list>
+</#if>

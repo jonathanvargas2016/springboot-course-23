@@ -1,0 +1,267 @@
+openapi: 3.0.3
+info:
+  title: Sistema de Gestión de Cursos y Estudiantes
+  description: Sistema de gestión de cursos y estudiantes utilizando Spring Boot, que permita administrar cursos y registrar a los estudiantes en ellos.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Jonathan Vargas
+    email: jvargasn@pichincha.com
+  version: 0.0.1
+servers: 
+  - url:  http://localhost:8080/v1
+tags: 
+  - name: course
+    description: Management of courses
+    externalDocs: 
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /course:
+    post:
+      tags: 
+        - course
+      summary: Add a new course
+      description: Add a new course
+      operationId: addCourse
+      requestBody:
+        description: Create a new course
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/CourseDto'
+        required: true
+      responses:
+        '200': 
+          description: Successfull operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDto' 
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Course not found
+        '405':
+          description: Validation exception
+          
+          
+    put:
+      tags:
+        - course
+      summary: Update a existing course
+      description: Update a existing course
+      operationId: updateCourse
+      requestBody:
+        description: Update a course
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseDto'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseDto'            
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Course not found
+        '405':
+          description: Validation exception    
+
+
+    get:
+      tags:
+        - course
+      summary: Get courses
+      description: get courses
+      operationId: getCourse
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data'
+
+  /course/{id}:        
+    get:
+      tags:
+        - course
+      summary: Find course by id
+      description: Get course by id
+      operationId: getCourseById
+      parameters: 
+        - name: id
+          in: path
+          description: Name values that need to be considered for filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseDto'            
+        '400':
+          description: Invalid id value    
+          
+
+    delete:
+      tags: 
+        - course
+      summary: Delete course by id
+      operationId: deleteCourse
+      description: Delete course by id
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Course not found
+          
+          
+  /student:
+    get:
+      tags:
+        - student
+      summary: Get students
+      description: get students
+      operationId: getStudent
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataStudent'
+          
+    post:
+      tags: 
+        - student
+      summary: Add a new student
+      description: Add a new student
+      operationId: addStudent
+      requestBody:
+        description: Create a new student
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/StudentDto'
+        required: true
+      responses:
+        '200': 
+          description: Successfull operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentDto' 
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Student not found
+        '405':
+          description: Validation exception        
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+components:
+  schemas:
+    PayloadDto:
+      type: object
+      properties:
+        messageUuuid:
+          type: string
+        key:
+          type: string
+        body:
+          type: string      
+    CourseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+        description:
+          type: string
+    
+    StudentDto:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+        name:
+          type: string
+        age:
+          type: integer
+          format: int64
+        email:
+          type: string
+          example: john@email.com
+         
+    CourseFreeDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        level:
+          type: number
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+    
+    CoursePaidDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        price:
+          type: integer
+          format: double
+        name:
+          type: string
+        description:
+          type: string
+      
+      
+    Data:
+      type: array
+      items:
+        $ref: "#/components/schemas/CourseDto"  
+      
+    DataStudent:
+      type: array
+      items:
+        $ref: "#/components/schemas/StudentDto"

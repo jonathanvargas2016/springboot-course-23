@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: service-products
+server:
+  port: 8080
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+application:
+  header:
+    channel: digital
+    medium: web

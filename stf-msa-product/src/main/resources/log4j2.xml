@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Se puede editar a la configuracion que se tenga en cada celula
+-->
+
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <JSONLayout applicationProperties="true" compact="true" eventEol="true"
+        objectMessageAsJsonObject="true">
+        <KeyValuePair key="guid" value="${ctx:guid}"/>
+        <KeyValuePair key="ip" value="${ctx:x-forwarded-for}"/>
+        <KeyValuePair key="user-agent" value="${ctx:user-agent}"/>
+        <KeyValuePair key="host" value="${ctx:host}"/>
+      </JSONLayout>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.pichincha" level="debug" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+    </Root>
+    <Logger name="org.springframework" level="error" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+  </Loggers>
+</Configuration>

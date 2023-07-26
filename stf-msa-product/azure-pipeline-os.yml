@@ -1,0 +1,20 @@
+name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  - feature/*
+  - release/*
+  - develop
+
+variables:
+  - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/') }}:
+      - group: ocs-dev-arq-framework
+  - ${{ if or( eq(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')) }}:
+      - group: staging
+resources:
+  repositories:
+    - repository: JavaTemplate
+      type: git
+      name: BP-DevOps-Infrastructure/common-pipeline-template-oc
+      ref: refs/heads/master
+extends:
+  template: java/springboot/gradle/init.yml@JavaTemplate
