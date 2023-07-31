@@ -4,6 +4,7 @@ import com.jonathan.service.item.domain.Item;
 import com.jonathan.service.item.domain.Product;
 import com.jonathan.service.item.service.ItemService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,10 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+@Service("serviceTemplate")
 @AllArgsConstructor
+// @Primary
 public class ItemServiceImpl implements ItemService {
-    
+
     private RestTemplate clientRestTemplate;
 
     @Override
@@ -31,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
         Map<String, String> pathVariable = new HashMap<>();
         pathVariable.put("id", id.toString());
 
-        Product product = clientRestTemplate.getForObject("http://localhost:8080/product/{1}", Product.class, pathVariable);
+        Product product = clientRestTemplate.getForObject("http://localhost:8080/product/{id}", Product.class, pathVariable);
 
         return new Item(product, amount);
     }

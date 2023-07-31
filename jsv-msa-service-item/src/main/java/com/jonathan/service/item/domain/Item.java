@@ -17,4 +17,5 @@ public class Item {
     public Double getTotal(){
         return  product.getPrice().doubleValue() * amount.doubleValue();
     }
+
 }
