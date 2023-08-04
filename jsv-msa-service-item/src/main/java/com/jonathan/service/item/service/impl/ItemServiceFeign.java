@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-@Primary // para indicar que implemente este servicio. Tambien se puede usar qualifier
+//@Primary // para indicar que implemente este servicio. Tambien se puede usar qualifier
 public class ItemServiceFeign implements ItemService {
 
     private ProductClientRest clientRest;

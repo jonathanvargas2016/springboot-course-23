@@ -3,6 +3,8 @@ package com.jonathan.product.controller;
 import com.jonathan.product.domain.Product;
 import com.jonathan.product.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +21,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProductController {
 
-    private Environment env;
+    //private Environment env;
+
+    @Value("${server.port}")
+    private Integer port;
     private ProductService productService;
 
     @GetMapping("")
     public ResponseEntity<List<Product>> getProduct(){
         List<Product> products = this.productService.findAll().stream().map(p -> {
-            p.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+            //p.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+            p.setPort(port);
             return p;
         }).collect(Collectors.toList());
         return new ResponseEntity<>(products, HttpStatus.OK);
@@ -34,7 +40,8 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable(name = "id") Long id){
         Product product = this.productService.findById(id);
-        product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+        //product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+        product.setPort(port);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
