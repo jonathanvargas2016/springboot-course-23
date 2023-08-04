@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients //habilitar clientes feign ademas permite inyectar estos clientes en los controllers u otros clientes spring
 @SpringBootApplication
-@LoadBalancerClient(value = "services-products")
+//@LoadBalancerClient(value = "services-products")
 public class JsvMsaServiceItemApplication {
 
 	public static void main(String[] args) {
