@@ -32,7 +32,7 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.0.4'
 
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-ribbon
-    //    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-ribbon', version: '2.2.10.RELEASE'
+    // implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-ribbon', version: '2.2.10.RELEASE'
 
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-loadbalancer
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer', version: '4.0.4'
