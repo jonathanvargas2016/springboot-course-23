@@ -4,17 +4,15 @@ import com.jonathan.service.item.domain.Item;
 import com.jonathan.service.item.domain.Product;
 import com.jonathan.service.item.service.ItemService;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service("serviceTemplate")
+@Service
 @AllArgsConstructor
 // @Primary
 public class ItemServiceImpl implements ItemService {

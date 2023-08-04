@@ -2,9 +2,8 @@ package com.jonathan.service.item.controller;
 
 import com.jonathan.service.item.domain.Item;
 import com.jonathan.service.item.service.ItemService;
-import com.jonathan.service.item.service.impl.ItemServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,7 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController {
 
-    @Qualifier("serviceFeign") // usar el servicio Feign
-    private ItemService itemService; //dos aervicios implementan itemService. Spring no sabe cual inyectar.
-
+    private ItemService itemService; //dos servicios implementan itemService. Spring no sabe cual inyectar.
 
     @GetMapping("")
     public ResponseEntity<List<Item>> getAll() {
