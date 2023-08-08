@@ -1,9 +1,6 @@
 package com.jonathan.service.item.client;
 
-
-import com.jonathan.service.item.configuration.AppConfiguration;
 import com.jonathan.service.item.domain.Product;
-import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

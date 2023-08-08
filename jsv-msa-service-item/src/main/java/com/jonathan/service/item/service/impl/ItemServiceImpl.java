@@ -4,7 +4,6 @@ import com.jonathan.service.item.domain.Item;
 import com.jonathan.service.item.domain.Product;
 import com.jonathan.service.item.service.ItemService;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
@@ -22,7 +21,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findAll() {
-        List<Product> products = Arrays.asList(clientRestTemplate.getForObject("http://services-products/products", Product[].class));
+        List<Product> products = Arrays.asList(clientRestTemplate.getForObject("http://services-products/product", Product[].class));
         return products.stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
     }
 
@@ -32,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
         Map<String, String> pathVariable = new HashMap<>();
         pathVariable.put("id", id.toString());
 
-        Product product = clientRestTemplate.getForObject("http://services-products/products/{id}", Product.class, pathVariable);
+        Product product = clientRestTemplate.getForObject("http://services-products/product/{id}", Product.class, pathVariable);
 
         return new Item(product, amount);
     }

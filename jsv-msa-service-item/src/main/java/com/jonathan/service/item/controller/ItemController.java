@@ -3,7 +3,6 @@ package com.jonathan.service.item.controller;
 import com.jonathan.service.item.domain.Item;
 import com.jonathan.service.item.service.ItemService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
