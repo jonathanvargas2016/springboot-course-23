@@ -31,6 +31,7 @@ public class ItemController {
     }
 
 //    @GetMapping("/{id}/amount/{amount}")
+//    @TimeLimiter(name = "detail")
 //    @Retry(name = "anotherMethod", fallbackMethod = "anotherMethod")
 //    public ResponseEntity<Item> detail(@PathVariable Long id, @PathVariable Integer amount) {
 //        return new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK);
@@ -52,7 +53,6 @@ public class ItemController {
 //    }
 
     @GetMapping("/{id}/amount/{amount}")
-    @TimeLimiter(name = "detail")
     @Retry(name = "anotherMethod", fallbackMethod = "anotherMethod")
     public CompletableFuture<ResponseEntity<Item>> detail(@PathVariable Long id, @PathVariable Integer amount) {
 
