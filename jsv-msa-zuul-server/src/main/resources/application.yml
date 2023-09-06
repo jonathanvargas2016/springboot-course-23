@@ -1,0 +1,47 @@
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: service-item
+#          uri: lb://service-item:8081
+#          predicates:
+#            - Path=/api/item/**
+#          filters:
+#            - StripPrefix=1
+#            - name: Example
+#              args:
+#                message: "Hola Mundo"
+#                cookieName: "usuario"
+#                cookieValue: "JonaVargas"
+#        - id: service-product
+#          uri: lb://services-products
+#          predicates:
+#            - Path=/api/product/**
+#          filters:
+#            - StripPrefix=1
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-item
+          uri: lb://service-item:8081
+          predicates:
+            - Path=/api/item/**
+#            - Header= token, \d+
+#            - Method=GET, POST
+#            - Query=color
+#            - Cookie=color, azul
+          filters:
+            - StripPrefix=1
+            - ExampleCookie= Hola Mundo, usuario, JonaVargas
+        - id: service-product
+          uri: lb://services-products
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=token-request, 123456
+            - AddResponseHeader=token-response, 12345678
+            - AddRequestParameter=name, jonathan
+            - AddResponseHeader=Content-Type, text/plain
