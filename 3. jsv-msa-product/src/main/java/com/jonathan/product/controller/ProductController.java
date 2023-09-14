@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,6 +37,19 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable(name = "id") Long id) {
+
+        if(id.equals(2L)){
+            throw new IllegalStateException("Producto no encontrado");
+        }
+
+        if(id.equals(3L)){
+            try {
+                TimeUnit.SECONDS.sleep(5L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         Product product = this.productService.findById(id);
         product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
         //product.setPort(port);

@@ -7,6 +7,9 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,10 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/item")
 public class ItemController {
 
+    private CircuitBreakerFactory cbFactory;
+
+    private final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
     private ItemService itemService; //dos servicios implementan itemService. Spring no sabe cual inyectar.
 
     @GetMapping("")
@@ -29,7 +36,6 @@ public class ItemController {
     }
 
 //    @GetMapping("/{id}/amount/{amount}")
-//    @TimeLimiter(name = "detail")
 //    @Retry(name = "anotherMethod", fallbackMethod = "anotherMethod")
 //    public ResponseEntity<Item> detail(@PathVariable Long id, @PathVariable Integer amount) {
 //        return new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK);
@@ -50,24 +56,45 @@ public class ItemController {
 //
 //    }
 
+//    @GetMapping("/{id}/amount/{amount}")
+//    @Retry(name = "anotherMethod", fallbackMethod = "anotherMethod")
+//    public CompletableFuture<ResponseEntity<Item>> detail(@PathVariable Long id, @PathVariable Integer amount) {
+//
+//        return CompletableFuture.supplyAsync(() -> {
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//            }
+//            return new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK);
+//
+//        });
+//
+//    }
+
+//    public CompletableFuture<ResponseEntity<Item>> anotherMethod(@PathVariable Long id, @PathVariable Integer amount, Throwable throwable) {
+//        System.out.println("ENTRO METODO ALTERNATIVO ---------------------->");
+//        Item item = new Item();
+//        Product product = new Product();
+//        product.setId(id);
+//        product.setName("Camara Sony");
+//        product.setPrice(new BigDecimal(1500));
+//        item.setAmount(amount);
+//        item.setProduct(product);
+//
+//        return CompletableFuture.completedFuture(
+//                new ResponseEntity<>(item, HttpStatus.OK)
+//        );
+//    }
+
+
     @GetMapping("/{id}/amount/{amount}")
-    @Retry(name = "anotherMethod", fallbackMethod = "anotherMethod")
-    public CompletableFuture<ResponseEntity<Item>> detail(@PathVariable Long id, @PathVariable Integer amount) {
-
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            return new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK);
-
-        });
-
+    public ResponseEntity<Item> detail(@PathVariable Long id, @PathVariable Integer amount) {
+        return cbFactory.create("items").run(() -> new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK), e -> anotherMethod(id, amount, e));
     }
 
-    public CompletableFuture<ResponseEntity<Item>> anotherMethod(@PathVariable Long id, @PathVariable Integer amount, Throwable throwable) {
-        System.out.println("ENTRO METODO ALTERNATIVO ---------------------->");
+    public ResponseEntity<Item> anotherMethod(@PathVariable Long id, @PathVariable Integer amount, Throwable e) {
+        logger.info(e.getMessage());
         Item item = new Item();
         Product product = new Product();
         product.setId(id);
@@ -76,10 +103,8 @@ public class ItemController {
         item.setAmount(amount);
         item.setProduct(product);
 
-        return CompletableFuture.completedFuture(
-                new ResponseEntity<>(item, HttpStatus.OK)
-        );
-    }
+        return new ResponseEntity<>(item, HttpStatus.OK);
 
+    }
 
 }
