@@ -93,6 +93,25 @@ public class ItemController {
         return cbFactory.create("items").run(() -> new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK), e -> anotherMethod(id, amount, e));
     }
 
+
+    //anotacion
+    @CircuitBreaker(name = "items", fallbackMethod = "anotherMethod")
+    // usando esta anotacion solo se aplica con la config en los archivos .properties o yml
+    @GetMapping("/watch/{id}/amount/{amount}")
+    public ResponseEntity<Item> detail2(@PathVariable Long id, @PathVariable Integer amount) {
+        return new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK);
+
+    }
+
+    @CircuitBreaker(name = "items", fallbackMethod = "anotherMethod2")
+    @TimeLimiter(name = "items")
+    // llamada en futuro. No puede calcular cuanto se demora por eso es necesario envolver esta llamada dentro de una clase especial
+    @GetMapping("/watch3/{id}/amount/{amount}")
+    public CompletableFuture<ResponseEntity<Item>> detail3(@PathVariable Long id, @PathVariable Integer amount) {
+        return CompletableFuture.supplyAsync(() -> new ResponseEntity<>(itemService.findById(id, amount), HttpStatus.OK));
+    }
+
+
     public ResponseEntity<Item> anotherMethod(@PathVariable Long id, @PathVariable Integer amount, Throwable e) {
         logger.info(e.getMessage());
         Item item = new Item();
@@ -106,5 +125,20 @@ public class ItemController {
         return new ResponseEntity<>(item, HttpStatus.OK);
 
     }
+
+    public CompletableFuture<ResponseEntity<Item>> anotherMethod2(@PathVariable Long id, @PathVariable Integer amount, Throwable e) {
+        logger.info(e.getMessage());
+        Item item = new Item();
+        Product product = new Product();
+        product.setId(id);
+        product.setName("Camara Sony");
+        product.setPrice(new BigDecimal(1500));
+        item.setAmount(amount);
+        item.setProduct(product);
+
+        return CompletableFuture.supplyAsync(() -> new ResponseEntity<>(item, HttpStatus.OK));
+
+    }
+
 
 }

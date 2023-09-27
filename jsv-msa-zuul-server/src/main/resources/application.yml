@@ -20,6 +20,9 @@
 #          filters:
 #            - StripPrefix=1
 
+
+
+
 spring:
   cloud:
     gateway:
@@ -45,3 +48,5 @@ spring:
             - AddResponseHeader=token-response, 12345678
             - AddRequestParameter=name, jonathan
             - AddResponseHeader=Content-Type, text/plain
+
+
