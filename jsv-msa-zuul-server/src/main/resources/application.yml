@@ -20,7 +20,26 @@
 #          filters:
 #            - StripPrefix=1
 
-
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 6
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 20s
+        permitted-number-of-calls-in-half-open-state: 4
+        slow-call-rate-threshold: 50
+        slow-call-duration-threshold: 2s
+    instances:
+      products:
+        base-config: default
+    timelimiter:
+      configs:
+        default:
+          timeout-duration: 2s
+      instances:
+        products:
+          base-config: default
 
 
 spring:
@@ -43,6 +62,11 @@ spring:
           predicates:
             - Path=/api/product/**
           filters:
+            - name: CircuitBreaker
+              args:
+                name: products
+                statusCodes: 500
+                fallbackUri: forward:/api/item/4/amount/5
             - StripPrefix=1
             - AddRequestHeader=token-request, 123456
             - AddResponseHeader=token-response, 12345678
