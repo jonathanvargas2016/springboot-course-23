@@ -4,26 +4,33 @@ import com.jonathan.service.item.domain.Item;
 import com.jonathan.service.item.domain.Product;
 import com.jonathan.service.item.service.ItemService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/item")
+@RefreshScope // permite refrescar los componentes,
 public class ItemController {
-
     private CircuitBreakerFactory cbFactory;
+    private Environment env;
+    private static Logger log = LoggerFactory.getLogger(ItemController.class);
+
 
     private final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
@@ -137,7 +144,22 @@ public class ItemController {
         item.setProduct(product);
 
         return CompletableFuture.supplyAsync(() -> new ResponseEntity<>(item, HttpStatus.OK));
+    }
 
+    @GetMapping("get-config")
+    public ResponseEntity<?> getConfig(@Value("${server.port}") String port){
+        //log.info(configurationProperties.getText());
+        Map<String, String> json = new HashMap<>();
+        //json.put("text", configurationProperties.getText());
+        json.put("port", port);
+
+        if(env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")){
+            json.put("author", env.getProperty("configuration.author.name"));
+            json.put("email", env.getProperty("configuration.author.email"));
+        }
+
+
+        return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
 
 
