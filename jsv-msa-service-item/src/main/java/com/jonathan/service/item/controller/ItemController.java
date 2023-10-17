@@ -162,5 +162,23 @@ public class ItemController {
         return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
     }
 
+    @PostMapping("create")
+    public ResponseEntity<Product> create(@RequestBody Product product){
+        return new ResponseEntity<>(itemService.save(product), HttpStatus.CREATED);
+    }
+
+    @PutMapping("edit/{id}")
+    public ResponseEntity<Product> edit(@RequestBody Product product, @PathVariable Long id){
+        return new ResponseEntity<>(itemService.update(product, id), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        itemService.delete(id);
+    }
+
+
+
 
 }

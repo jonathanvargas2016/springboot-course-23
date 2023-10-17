@@ -2,8 +2,9 @@ package com.jonathan.service.item.client;
 
 import com.jonathan.service.item.domain.Product;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,4 +16,16 @@ public interface ProductClientRest {
 
     @GetMapping("/product/{id}")
     public Product getProductById(@PathVariable(name = "id") Long id);
+
+
+    @PostMapping("/product/create")
+    public Product saveProduct(@RequestBody Product product);
+
+    @PutMapping("/product/edit/{id}")
+    public Product updateProduct(@RequestBody Product product, @PathVariable Long id);
+
+    @DeleteMapping("/product/delete/{id}")
+    public void delete(@PathVariable Long id);
+
+
 }

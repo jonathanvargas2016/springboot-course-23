@@ -24,7 +24,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("")
-    public ResponseEntity<List<Product>> getProduct(@RequestParam(name = "name",required = false) String name, @RequestHeader(name = "token-request", required = false) String token) {
+    public ResponseEntity<List<Product>> getProduct(@RequestParam(name = "name", required = false) String name, @RequestHeader(name = "token-request", required = false) String token) {
         System.out.println("Name ---->" + name);
         System.out.println("Token ---->" + token);
         List<Product> products = this.productService.findAll().stream().map(p -> {
@@ -38,22 +38,45 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable(name = "id") Long id) {
 
-        if(id.equals(2L)){
-            throw new IllegalStateException("Producto no encontrado");
-        }
-
-        if(id.equals(3L)){
-            try {
-                TimeUnit.SECONDS.sleep(5L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        if (id.equals(2L)) {
+//            throw new IllegalStateException("Producto no encontrado");
+//        }
+//
+//        if (id.equals(3L)) {
+//            try {
+//                TimeUnit.SECONDS.sleep(5L);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
         Product product = this.productService.findById(id);
         product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
         //product.setPort(port);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+
+    @PostMapping("create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.OK);
+    }
+
+    @PutMapping("edit/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id) {
+        Product productFind = productService.findById(id);
+        productFind.setName(product.getName());
+        productFind.setPrice(product.getPrice());
+
+        return new ResponseEntity<>(productService.saveProduct(productFind), HttpStatus.OK);
+    }
+
+    @DeleteMapping("delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        productService.deleteById(id);
+    }
+
 
 }
