@@ -67,7 +67,25 @@ public class ExampleGatewayFilterFactory extends AbstractGatewayFilterFactory<Ex
     public List<String> shortcutFieldOrder() {
         return Arrays.asList("message", "cookieName", "cookieValue");
     }
+public enum FeeEnum {
+        LOW,MEDIUM, HIGH
+}
+    public FeeEnum  getFee(double income){
+        if(income<0 ){
+            throw  new IllegalArgumentException();
+        }
 
+        if(income < 1_000_000){
+            return FeeEnum.HIGH;
+        }
+
+
+        if(income > 500_000){
+            return FeeEnum.MEDIUM;
+        }
+
+        return FeeEnum.LOW
+    }
 
 
 
