@@ -3,10 +3,11 @@ package com.hexagonal.tasks.application.services;
 import com.hexagonal.tasks.domain.models.AdditionalTaskInfo;
 import com.hexagonal.tasks.domain.models.Task;
 import com.hexagonal.tasks.domain.ports.in.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class TaskService  implements CreateTaskUseCase, RetrieveTaskUseCase, UpdateTaskUseCase, DeleteTaskUseCase, GetAdditionalTaskInfoUseCase {
 
     private final CreateTaskUseCase createTaskUseCase;
@@ -15,7 +16,7 @@ public class TaskService  implements CreateTaskUseCase, RetrieveTaskUseCase, Upd
     private final DeleteTaskUseCase deleteTaskUseCase;
     private final GetAdditionalTaskInfoUseCase getAdditionalTaskInfoUseCase;
 
-    public TaskService(CreateTaskUseCase createTaskUseCase, RetrieveTaskUseCase retrieveTaskUseCase, UpdateTaskUseCase updateTaskUseCase, com.hexagonal.tasks.domain.ports.in.DeleteTaskUseCase deleteTaskUseCase, GetAdditionalTaskInfoUseCase getAdditionalTaskInfoUseCase) {
+    public TaskService(CreateTaskUseCase createTaskUseCase, RetrieveTaskUseCase retrieveTaskUseCase, UpdateTaskUseCase updateTaskUseCase, DeleteTaskUseCase deleteTaskUseCase, GetAdditionalTaskInfoUseCase getAdditionalTaskInfoUseCase) {
         this.createTaskUseCase = createTaskUseCase;
         this.retrieveTaskUseCase = retrieveTaskUseCase;
         this.updateTaskUseCase = updateTaskUseCase;
